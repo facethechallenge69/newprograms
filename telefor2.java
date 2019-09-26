@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "brick tele brickz", group = "Tutorials")
+@TeleOp(name = "tele", group = "Tutorials")
 public class
 
 telefor2 extends LinearOpMode {
@@ -14,14 +14,11 @@ telefor2 extends LinearOpMode {
     private DcMotor motorR_Down;
     private DcMotor motorR_Up;
     private DcMotor motorL_Up;
-    private DcMotor motorArmUpDown;
-    private DcMotor motorArmcirc_right;
-    private DcMotor motorArmClaw;
-    private DcMotor motorArmcirc_left;
+    
 
 
-
-    private Servo ClawServo;
+    private Servo RedServo;
+    private Servo BlackServo;
 
 
     int MOV_LEFT_RIGHT = 1;
@@ -40,20 +37,22 @@ telefor2 extends LinearOpMode {
         motorR_Down = hardwareMap.dcMotor.get("right_motor_d");
         motorL_Up = hardwareMap.dcMotor.get("left_motor_up");
         motorR_Up = hardwareMap.dcMotor.get("right_motor_up");
-        motorArmUpDown = hardwareMap.dcMotor.get("motor_lift");
-        motorArmcirc_right = hardwareMap.dcMotor.get("arm_arc");
-        motorArmcirc_left = hardwareMap.dcMotor.get("arm_arc_left");
+        
 
-        motorArmClaw = hardwareMap.dcMotor.get("arm_claw");
-
-        ClawServo = hardwareMap.servo.get("arm_servo");
+        RedServo = hardwareMap.servo.get("red_servo");
+        BlackServo = hardwareMap.servo.get("black_servo");
 
 
         double motorSpeed = 1;
 
-        double Clawposition = 0;
-
+        
         int moving = 0;
+
+        double red_value = 0;
+
+        double black_value = 1;
+
+
 
 
 
@@ -65,13 +64,9 @@ telefor2 extends LinearOpMode {
 
 
 
-        motorArmUpDown.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        motorArmcirc_right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motorArmcirc_left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        motorArmClaw.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
-        ClawServo.setPosition(1);
+        BlackServo.setPosition(1);
+        RedServo.setPosition(1);
         waitForStart();
 
         while (opModeIsActive()) {
@@ -85,7 +80,9 @@ telefor2 extends LinearOpMode {
                 motorSpeed = 0.4;
             }
 
-            //incremental movement for clawservo
+
+
+            //incremental movement for RedServo
 
 
 
@@ -162,20 +159,39 @@ telefor2 extends LinearOpMode {
 
 
 
-            motorArmUpDown.setPower(gamepad1.right_stick_y);
+         
 
             //___________________________________________________
-            // claw movement
+            // red/black servo movement
 
+//dpad up/down is for red serv
+//dppad right/left is for black servo
+//up dpad + 0.1
+// down dpad -0.1
+// left dpad +0.1
+// right dpad -0.1
 
-            if(gamepad2.right_bumper)
-            { //close
-                ClawServo.setPosition(1);
+            if(gamepad1.dpad_up)
+            {
+                red_value = red_value + 0.1;
+                RedServo.setPosition(red_value);
             }
 
-            if(gamepad2.left_bumper)
-            {  //open
-                ClawServo.setPosition(0);
+            if(gamepad1.dpad_down)
+            {
+                red_value = red_value - 0.1;
+                RedServo.setPosition(red_value);
+            }
+
+            if (gamepad1.dpad_left) {
+                black_value = black_value + 0.1;
+                BlackServo.setPosition(black_value);
+            }
+
+            if (gamepad1.dpad_down)
+            {
+                black_value = black_value - 0.1;
+                BlackServo.setPosition(black_value);
             }
 
 
@@ -185,37 +201,9 @@ telefor2 extends LinearOpMode {
 
             //_______________________motor claw movement_______________
 
-            motorArmClaw.setPower(0.469 * gamepad2.right_stick_y);
+           
 
-            if(gamepad2.right_stick_y == 0)    {
-                motorArmClaw.getCurrentPosition();
-                motorArmClaw.setTargetPosition(motorArmClaw.getCurrentPosition());
-
-
-            }
-
-
-
-
-            motorArmcirc_right.setPower(-0.45*gamepad2.left_stick_y);
-            motorArmcirc_left.setPower(0.45*gamepad2.left_stick_y);
-
-
-
-            if(gamepad2.left_stick_y == 0)    {
-
-                motorArmcirc_right.getCurrentPosition();
-                motorArmcirc_right.setTargetPosition(motorArmcirc_right.getCurrentPosition());
-
-                motorArmcirc_left.getCurrentPosition();
-                motorArmcirc_left.setTargetPosition(motorArmcirc_left.getCurrentPosition());
-
-
-
-            }
-
-            telemetry.addData("armposition = %d", motorArmUpDown.getTargetPosition());
-            // telemetry.addData("distance = %d",  distance_circ);
+           
             telemetry.update();
             idle();
 
