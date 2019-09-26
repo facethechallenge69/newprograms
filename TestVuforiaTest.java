@@ -132,7 +132,7 @@ public class TestVuforiaTest extends LinearOpMode
                 }
             }
 
-            // Provide feedback as to where the robot is located (if we know).
+            // Provide feedbanck as to where the robot is located (if we know).
             if (targetVisible) {
                 // express position (translation) of robot in inches.
                 VectorF translation = lastLocation.getTranslation();
