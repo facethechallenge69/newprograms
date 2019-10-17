@@ -17,6 +17,7 @@ telefor2 extends LinearOpMode {
     private DcMotor motor_UpDown;
     private DcMotor motor_SideSide;
 
+
     private Servo RedServo;
     private Servo BlackServo;
 
@@ -37,6 +38,8 @@ telefor2 extends LinearOpMode {
         motorR_Down = hardwareMap.dcMotor.get("right_motor_d");
         motorL_Up = hardwareMap.dcMotor.get("left_motor_up");
         motorR_Up = hardwareMap.dcMotor.get("right_motor_up");
+        motor_UpDown = hardwareMap.dcMotor.get("motor_up.up");
+        motor_SideSide = hardwareMap.dcMotor.get("motor_side.side");
         
 
         RedServo = hardwareMap.servo.get("red_servo");
@@ -199,7 +202,10 @@ telefor2 extends LinearOpMode {
 
 
 
-            //_______________________motor claw movement_______________
+            //_______________________arm motor movement_______________
+
+            motor_SideSide.setPower(gamepad2.left_stick_y);
+            motor_UpDown.setPower(gamepad2.right_stick_y);
 
            
 
