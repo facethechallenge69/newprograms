@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "tele", group = "Tutorials")
+@TeleOp(name = "telefor2", group = "Tutorials")
 public class
 
 telefor2 extends LinearOpMode {
@@ -16,8 +16,11 @@ telefor2 extends LinearOpMode {
     private DcMotor motorL_Up;
     private DcMotor motor_UpDown;
     private DcMotor motor_SideSide;
+<<<<<<< HEAD
     
 
+=======
+>>>>>>> 96bacce5dbc3c31ca9db2df0945dd88ef1dd094b
 
     private Servo RedServo;
     private Servo BlackServo;
@@ -96,8 +99,8 @@ telefor2 extends LinearOpMode {
             if(moving == 0 && gamepad1.left_stick_y !=0 ) {
 
                 moving = MOV_FRONT_BACK;
-                motorL_Down.setPower(motorSpeed * gamepad1.left_stick_y);
-                motorR_Down.setPower(motorSpeed * -gamepad1.left_stick_y);
+                motorL_Down.setPower(motorSpeed * -gamepad1.left_stick_y);
+                motorR_Down.setPower(motorSpeed * gamepad1.left_stick_y);
                 motorL_Up.setPower(motorSpeed * gamepad1.left_stick_y);
                 motorR_Up.setPower(motorSpeed * -gamepad1.left_stick_y);
             }
@@ -114,8 +117,8 @@ telefor2 extends LinearOpMode {
                 moving = MOV_LEFT_RIGHT;
                 motorL_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
                 motorR_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
-                motorL_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
-                motorR_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
+                motorL_Up.setPower(motorSpeed * gamepad1.left_stick_x);
+                motorR_Up.setPower(motorSpeed * gamepad1.left_stick_x);
             }
             else if(gamepad1.left_stick_x ==0 && moving == MOV_LEFT_RIGHT)
             {
@@ -126,7 +129,7 @@ telefor2 extends LinearOpMode {
 
 
 
-            if (moving == 0 && gamepad1.dpad_right) {
+        /*    if (moving == 0 && gamepad1.dpad_right) {
                 moving = STAF_RIGHT;
                 motorL_Down.setPower(1);
                 motorR_Down.setPower(1);
@@ -161,7 +164,7 @@ telefor2 extends LinearOpMode {
                 motorR_Up.setPower(0);
             }
 
-
+*/
 
          
 
@@ -192,7 +195,7 @@ telefor2 extends LinearOpMode {
                 BlackServo.setPosition(black_value);
             }
 
-            if (gamepad1.dpad_down)
+            if (gamepad1.dpad_right)
             {
                 black_value = black_value - 0.1;
                 BlackServo.setPosition(black_value);
