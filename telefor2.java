@@ -16,11 +16,7 @@ telefor2 extends LinearOpMode {
     private DcMotor motorL_Up;
     private DcMotor motor_UpDown;
     private DcMotor motor_SideSide;
-<<<<<<< HEAD
-    
 
-=======
->>>>>>> 96bacce5dbc3c31ca9db2df0945dd88ef1dd094b
 
     private Servo RedServo;
     private Servo BlackServo;
