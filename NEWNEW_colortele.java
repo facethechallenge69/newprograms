@@ -10,7 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
-@TeleOp(name = "ColorTele", group = "Tutorials")
+@TeleOp(name = "ColorTelelogic", group = "Tutorials")
 public class NEWNEW_colortele extends LinearOpMode {
     NormalizedColorSensor colorSensor;
 
