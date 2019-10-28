@@ -30,7 +30,12 @@ public class autofunctions
 
     private Servo RedServo;
     private Servo BlackServo;
-    private Servo ArmServo;
+
+    private DcMotor ArmMotor_Left;
+    private DcMotor ArmMotor_Right;
+
+    private Servo armservo;
+
 
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
@@ -63,7 +68,7 @@ public class autofunctions
         motor_SideSide = motor_SideSideIn;
         RedServo = RedServoIn;
         BlackServo = BlackServoIn;
-        ArmServo = ArmServoIn;
+        armservo = ArmServoIn;
         imu = imuIn;
         
         telemetry = telemetryIn;

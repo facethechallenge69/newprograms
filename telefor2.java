@@ -14,12 +14,15 @@ telefor2 extends LinearOpMode {
     private DcMotor motorR_Down;
     private DcMotor motorR_Up;
     private DcMotor motorL_Up;
-    private DcMotor motor_UpDown;
-    private DcMotor motor_SideSide;
 
 
     private Servo RedServo;
     private Servo BlackServo;
+
+    private DcMotor ArmMotor_Left;
+    private DcMotor ArmMotor_Right;
+
+    private Servo armservo;
 
 
     int MOV_LEFT_RIGHT = 1;
@@ -38,12 +41,15 @@ telefor2 extends LinearOpMode {
         motorR_Down = hardwareMap.dcMotor.get("right_motor_d");
         motorL_Up = hardwareMap.dcMotor.get("left_motor_up");
         motorR_Up = hardwareMap.dcMotor.get("right_motor_up");
-        motor_UpDown = hardwareMap.dcMotor.get("motor_up.up");
-        motor_SideSide = hardwareMap.dcMotor.get("motor_side.side");
-        
+
 
         RedServo = hardwareMap.servo.get("red_servo");
         BlackServo = hardwareMap.servo.get("black_servo");
+
+        ArmMotor_Left = hardwareMap.dcMotor.get("armmotor_l");
+        ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
+
+        armservo = hardwareMap.servo.get("arm_servo");
 
 
         double motorSpeed = 1;
@@ -64,6 +70,9 @@ telefor2 extends LinearOpMode {
         motorL_Down.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorR_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorL_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 
@@ -204,8 +213,13 @@ telefor2 extends LinearOpMode {
 
             //_______________________arm motor movement_______________
 
-            motor_SideSide.setPower(gamepad2.left_stick_y);
-            motor_UpDown.setPower(gamepad2.right_stick_y);
+
+            if (moving == 0 && gamepad1.dpad_left) {
+                moving = STRAF_LEFT;
+                ArmMotor_Left.setPower(motorSpeed * -1);
+                ArmMotor_Right.setPower(motorSpeed * -1);
+
+            }
 
            
 

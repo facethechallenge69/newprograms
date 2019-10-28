@@ -21,12 +21,15 @@ public class autotest extends LinearOpMode
     private DcMotor motorL_Down;
     private DcMotor motorR_Up;
     private DcMotor motorR_Down;
-    private DcMotor motor_UpDown;
-    private DcMotor motor_SideSide;
+
 
     private Servo RedServo;
     private Servo BlackServo;
-    private Servo ArmServo;
+
+    private DcMotor ArmMotor_Left;
+    private DcMotor ArmMotor_Right;
+
+    private Servo armservo;
 
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
@@ -52,12 +55,15 @@ public class autotest extends LinearOpMode
         motorR_Down = hardwareMap.dcMotor.get("right_motor_d");
         motorL_Up = hardwareMap.dcMotor.get("left_motor_up");
         motorR_Up = hardwareMap.dcMotor.get("right_motor_up");
-        motor_UpDown = hardwareMap.dcMotor.get("motor_up.up");
-        motor_SideSide = hardwareMap.dcMotor.get("motor_side.side");
-
 
         RedServo = hardwareMap.servo.get("red_servo");
         BlackServo = hardwareMap.servo.get("black_servo");
+
+        ArmMotor_Left = hardwareMap.dcMotor.get("armmotor_l");
+        ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
+
+        armservo = hardwareMap.servo.get("arm_servo");
+
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -74,20 +80,19 @@ public class autotest extends LinearOpMode
         motorR_Down.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorL_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        motor_UpDown.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
-        motor_SideSide.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         auto_functions.Initialize(motorL_Down,
                 motorR_Down,
                 motorR_Up,
                 motorL_Up,
-                motor_UpDown,
-                motor_SideSide,
+                ArmMotor_Left,
+                ArmMotor_Right,
                 RedServo,
                 BlackServo,
-                ArmServo,
+                armservo,
                 imu,
                 telemetry);
 
@@ -98,23 +103,23 @@ public class autotest extends LinearOpMode
         {
             if (gamepad1.a)
             {
-                encoder_tics += 100;
-                sleep(400);
+                encoder_tics += 50;
+                sleep(200);
             }
             if (gamepad1.b)
             {
-                encoder_speed += 0.1;
-                sleep(400);
+                encoder_speed += 0.05;
+                sleep(200);
             }
             if(gamepad1.y)
             {
-                encoder_speed -= 0.1;
-                sleep(400);
+                encoder_speed -= 0.05;
+                sleep(200);
             }
             if (gamepad1.x)
             {
-                encoder_tics -= 50;
-                sleep(400);
+                encoder_tics -= 25;
+                sleep(200);
             }
             if (gamepad1.dpad_up)
             {
@@ -127,6 +132,14 @@ public class autotest extends LinearOpMode
             if (gamepad1.dpad_right)
             {
                 auto_functions.TurnRight(encoder_speed, encoder_tics);
+            }
+            if (gamepad2.dpad_left)
+            {
+                auto_functions.StrafeLeft(encoder_speed,encoder_tics);
+            }
+            if (gamepad2.dpad_right)
+            {
+                auto_functions.StrafeRight(encoder_speed,encoder_tics);
             }
 
 
