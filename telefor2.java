@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "telefor2", group = "Tutorials")
+@TeleOp(name = "telefor69", group = "Tutorials")
 public class
 
 telefor2 extends LinearOpMode {
@@ -148,7 +148,7 @@ telefor2 extends LinearOpMode {
             {
                 moving = 0;
             }
-
+*/
             if(moving == 0)
             {
                 motorL_Down.setPower(0);
@@ -157,7 +157,7 @@ telefor2 extends LinearOpMode {
                 motorR_Up.setPower(0);
             }
 
-*/
+
 
          
 
