@@ -24,7 +24,8 @@ import static org.firstinspires.ftc.robotcore.external.navigation.AxesReference.
 import static org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection.BACK;
 
 
-@TeleOp(name="SKYSTONE Vuforia Nav", group ="Concept")
+
+@TeleOp(name="SKYSTONE Vuforia k.dot", group ="Concept")
 public class TestVuforiaTest extends LinearOpMode
 {
 
