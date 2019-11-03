@@ -6,11 +6,9 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-<<<<<<< HEAD
-@TeleOp(name = "telefor69", group = "Tutorials")
-=======
+
 @TeleOp(name = "telee3xx", group = "Tutorials")
->>>>>>> d2e872a45e986bc509998c03d1ab5986bc328552
+
 public class
 
 telefor2 extends LinearOpMode {
@@ -64,6 +62,8 @@ telefor2 extends LinearOpMode {
         double red_value = 0;
 
         double black_value = 1;
+
+        double arm_servo = 0.5;
 
 
 
@@ -164,7 +164,7 @@ telefor2 extends LinearOpMode {
             {
                 moving = 0;
             }
-*/
+
             if(moving == 0)
             {
                 motorL_Down.setPower(0);
@@ -173,10 +173,7 @@ telefor2 extends LinearOpMode {
                 motorR_Up.setPower(0);
             }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> d2e872a45e986bc509998c03d1ab5986bc328552
 
             // red/black servo movement
 
@@ -204,30 +201,27 @@ telefor2 extends LinearOpMode {
                 BlackServo.setPosition(black_value);
             }
 
-            if(gamepad1.left_bumper) {
 
-                BlackServo.setPosition(-1);
-                RedServo.setPosition(-1);
+            if (gamepad2.left_bumper) {
+                arm_servo = arm_servo - 0.1;
+                armservo.setPosition(arm_servo);
             }
 
-            if(gamepad1.right_bumper) {
-                BlackServo.setPosition(1);
-                RedServo.setPosition(1);
+            if (gamepad2.right_bumper) {
+           arm_servo = arm_servo + 0.1;
+           armservo.setPosition(arm_servo);
+
             }
-
-
-
 
 
             //_______________________arm motor movement_______________
 
 
-            if (moving == 0 && gamepad1.dpad_left) {
-                moving = STRAF_LEFT;
-                ArmMotor_Left.setPower(motorSpeed * -1);
-                ArmMotor_Right.setPower(motorSpeed * -1);
 
-            }
+                ArmMotor_Left.setPower(gamepad2.left_stick_y * 0.4);
+                ArmMotor_Right.setPower(gamepad2.left_stick_y * -0.4);
+
+
 
            
 
@@ -272,5 +266,3 @@ telefor2 extends LinearOpMode {
 
 
 }
-
-
