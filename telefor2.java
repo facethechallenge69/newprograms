@@ -127,10 +127,10 @@ telefor2 extends LinearOpMode {
             if(moving == 0 && gamepad1.left_stick_x !=0 ) {
 
                 moving = MOV_LEFT_RIGHT;
-                motorL_Down.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorR_Down.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorL_Up.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorR_Up.setPower(motorSpeed * gamepad1.left_stick_x);
+                motorL_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
+                motorR_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
+                motorL_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
+                motorR_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
             }
             else if(gamepad1.left_stick_x ==0 && moving == MOV_LEFT_RIGHT)
             {
@@ -220,8 +220,8 @@ telefor2 extends LinearOpMode {
 
 
 
-                ArmMotor_Left.setPower(gamepad2.left_stick_y * 0.4);
-                ArmMotor_Right.setPower(gamepad2.left_stick_y * -0.4);
+                ArmMotor_Left.setPower(gamepad2.left_stick_y * -0.269);
+                ArmMotor_Right.setPower(gamepad2.left_stick_y * 0.269);
 
 
 
