@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
-@TeleOp(name = "telee3xx", group = "Tutorials")
+@TeleOp(name = "telee69xx", group = "Tutorials")
 
 public class
 
