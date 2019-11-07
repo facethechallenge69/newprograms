@@ -6,8 +6,17 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
+<<<<<<< HEAD
 @TeleOp(name = "telee3xx", group = "Tutorials")
 
+=======
+
+
+
+@TeleOp(name = "telee69xx", group = "Tutorials")
+
+
+>>>>>>> 265ba44d2fe031dc19c13ebd4129ccdf763e98a6
 public class
 
 telefor2 extends LinearOpMode {
@@ -123,10 +132,10 @@ telefor2 extends LinearOpMode {
             if(moving == 0 && gamepad1.left_stick_x !=0 ) {
 
                 moving = MOV_LEFT_RIGHT;
-                motorL_Down.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorR_Down.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorL_Up.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorR_Up.setPower(motorSpeed * gamepad1.left_stick_x);
+                motorL_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
+                motorR_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
+                motorL_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
+                motorR_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
             }
             else if(gamepad1.left_stick_x ==0 && moving == MOV_LEFT_RIGHT)
             {
@@ -172,6 +181,10 @@ telefor2 extends LinearOpMode {
                 motorR_Up.setPower(0);
             }
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 265ba44d2fe031dc19c13ebd4129ccdf763e98a6
             // red/black servo movement
 
 
@@ -215,8 +228,8 @@ telefor2 extends LinearOpMode {
 
 
 
-                ArmMotor_Left.setPower(gamepad2.left_stick_y * 0.4);
-                ArmMotor_Right.setPower(gamepad2.left_stick_y * -0.4);
+                ArmMotor_Left.setPower(gamepad2.left_stick_y * -0.269);
+                ArmMotor_Right.setPower(gamepad2.left_stick_y * 0.269);
 
 
 
