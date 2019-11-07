@@ -6,12 +6,8 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-<<<<<<< HEAD
-=======
-
 @TeleOp(name = "telee3xx", group = "Tutorials")
 
->>>>>>> b0766101a1687a2d9514817b75e5c6fa98ed9864
 public class
 
 telefor2 extends LinearOpMode {
@@ -176,11 +172,6 @@ telefor2 extends LinearOpMode {
                 motorR_Up.setPower(0);
             }
 
-<<<<<<< HEAD
-=======
-
-
->>>>>>> b0766101a1687a2d9514817b75e5c6fa98ed9864
             // red/black servo movement
 
 
