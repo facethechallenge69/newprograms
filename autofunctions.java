@@ -91,15 +91,15 @@ public class autofunctions
         motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorL_Down.setTargetPosition(Distance);
-        motorL_Up.setTargetPosition(Distance);
-        motorR_Up.setTargetPosition(-Distance);
-        motorR_Down.setTargetPosition(-Distance);
+        motorL_Down.setTargetPosition(-Distance);
+        motorL_Up.setTargetPosition(-Distance);
+        motorR_Up.setTargetPosition(Distance);
+        motorR_Down.setTargetPosition(Distance);
 
-        motorL_Down.setPower(Power);
-        motorL_Up.setPower(Power);
-        motorR_Up.setPower(-Power);
-        motorR_Down.setPower(-Power);
+        motorL_Down.setPower(-Power);
+        motorL_Up.setPower(-Power);
+        motorR_Up.setPower(Power);
+        motorR_Down.setPower(Power);
 
 
         while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())

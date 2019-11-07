@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@TeleOp(name = "1/26 Autonomous Test Program", group = "Tutorials")
+@TeleOp(name = "yeettest", group = "Tutorials")
 public class autotest extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -38,8 +38,6 @@ public class autotest extends LinearOpMode
 
     NormalizedColorSensor colorSensor;
     NormalizedColorSensor colorSensor2;
-
-    Telemetry telemetry;
 
     autofunctions auto_functions = new autofunctions();
 
