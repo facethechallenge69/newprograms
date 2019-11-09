@@ -101,7 +101,6 @@ public class autofunctions
         motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
-
         motorL_Down.setPower(-Power);
         motorL_Up.setPower(-Power);
         motorR_Up.setPower(Power);
@@ -293,6 +292,18 @@ public class autofunctions
 
         }*/
 
+    }
+
+    public void ServoDown ()
+    {
+      BlackServo.setPosition(-0.8);
+      RedServo.setPosition(-0.8);
+    }
+
+    public void ServoUp ()
+    {
+        BlackServo.setPosition(0.8);
+        RedServo.setPosition(0.8);
     }
 
     public void StopDriving ()

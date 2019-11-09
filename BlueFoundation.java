@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.newprograms;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -14,8 +15,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@TeleOp(name = "11/08/2019testtest", group = "Tutorials")
-public class autotest extends LinearOpMode
+@Autonomous(name = "11/8/2019BlueFound.", group = "Tutorials")
+public class BlueFoundation extends LinearOpMode
 {
     private DcMotor motorL_Up;
     private DcMotor motorL_Down;
@@ -46,8 +47,7 @@ public class autotest extends LinearOpMode
 
 
     @Override
-    public void runOpMode() throws InterruptedException
-    {
+    public void runOpMode() throws InterruptedException {
         //Receiving the necessary hardware for the motors
         motorL_Down = hardwareMap.dcMotor.get("left_motor_d");
         motorR_Down = hardwareMap.dcMotor.get("right_motor_d");
@@ -78,8 +78,8 @@ public class autotest extends LinearOpMode
         motorR_Down.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorL_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-       ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-      ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
         auto_functions.Initialize(motorL_Down,
@@ -94,64 +94,36 @@ public class autotest extends LinearOpMode
                 imu,
                 telemetry);
 
-        //Waiting for the user to press start
+        auto_functions.ServoUp();
+
         waitForStart();
 
-        while (opModeIsActive())
-        {
-            if (gamepad1.a)
-            {
-                encoder_tics += 50;
-                sleep(200);
-            }
-            if (gamepad1.b)
-            {
-                encoder_speed += 0.05;
-                sleep(200);
-            }
-            if(gamepad1.y)
-            {
-                encoder_speed -= 0.05;
-                sleep(200);
-            }
-            if (gamepad1.x)
-            {
-                encoder_tics -= 25;
-                sleep(200);
-            }
-            if (gamepad1.dpad_up)
-            {
-                auto_functions.DriveForward(encoder_speed, encoder_tics);
-            }
-            if (gamepad1.dpad_left)
-            {
-                auto_functions.TurnLeft(encoder_speed, encoder_tics);
-            }
-            if (gamepad1.dpad_right)
-            {
-                auto_functions.TurnRight(encoder_speed, encoder_tics);
-            }
-            if (gamepad2.dpad_left)
-            {
-                auto_functions.StrafeLeft(encoder_speed,encoder_tics);
-            }
-            if (gamepad2.dpad_right)
-            {
-                auto_functions.StrafeRight(encoder_speed,encoder_tics);
-            }
 
+        auto_functions.DriveForward(0.45, 1000);
+        sleep(100);
 
-            telemetry.addData("encoder distance %d", encoder_tics);
-            telemetry.addData("encoder speed %f", encoder_speed);
-            telemetry.update();
+        auto_functions.DriveForward(0.25,900);
+        sleep(1000);
 
-            idle();
-        }
+        auto_functions.ServoDown();
+        sleep(1000);
+
+        auto_functions.DriveForward(0.45, -1800);
+        sleep(100);
+
+        auto_functions.ServoUp();
+        sleep(100);
+
+        auto_functions.StrafeRight(0.45, 2050);
+        sleep(100);
+
+        auto_functions.DriveForward(0.45, 2400);
+        sleep(100);
+
+        auto_functions.StrafeLeft(0.45,2250);
+        sleep(100);
+
+        auto_functions.DriveForward(0.45, -1300);
+        sleep(100);
     }
-
 }
-
-
-
-
-
