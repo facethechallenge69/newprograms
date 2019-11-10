@@ -15,8 +15,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "11/8/2019BlueFound.", group = "Tutorials")
-public class BlueFoundation extends LinearOpMode
+@Autonomous(name = "BlueFoundationYellowPark", group = "Tutorials")
+public class BlueFoundationParkYellow extends LinearOpMode
 {
     private DcMotor motorL_Up;
     private DcMotor motorL_Down;
@@ -98,7 +98,6 @@ public class BlueFoundation extends LinearOpMode
 
         waitForStart();
 
-
         auto_functions.DriveForward(0.45, 1000);
         sleep(100);
 
@@ -124,6 +123,8 @@ public class BlueFoundation extends LinearOpMode
         sleep(100);
 
         auto_functions.DriveForward(0.45, -1300);
-        sleep(100);
+        sleep(11000);
+
+        auto_functions.StrafeRight(0.45, 3500);
     }
 }
