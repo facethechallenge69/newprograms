@@ -42,7 +42,7 @@ public class autofunctions
 
     Orientation angles;
 
-    NormalizedColorSensor colorSensor;
+    NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
 
     Telemetry telemetry;
@@ -70,7 +70,7 @@ public class autofunctions
         BlackServo = BlackServoIn;
         armservo = ArmServoIn;
         imu = imuIn;
-        
+
         telemetry = telemetryIn;
 
 
@@ -294,6 +294,46 @@ public class autofunctions
 
     }
 
+    public void StrafeLeftColor (double Power, int Distance)
+    {
+        AllBREAK();
+
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        motorR_Up.setTargetPosition(Distance);
+        motorR_Down.setTargetPosition(-Distance);
+        motorL_Up.setTargetPosition(Distance);
+        motorL_Down.setTargetPosition(-Distance);
+
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        motorR_Up.setPower(Power);
+        motorR_Down.setPower(-Power);
+        motorL_Up.setPower(Power);
+        motorL_Down.setPower(-Power);
+
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+            int got_color = getcubecolor();
+            if (got_color == 1)
+            {
+                break;
+            }
+        }
+
+        StopDriving();
+
+    }
+
+
     public void ServoDown ()
     {
       BlackServo.setPosition(-0.8);
@@ -344,6 +384,54 @@ public class autofunctions
         motorL_Down.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorR_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
         motorL_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+    }
+
+    public int getcubecolor() {
+        NormalizedRGBA colors = colorSensor1.getNormalizedColors();
+        NormalizedRGBA colors2 = colorSensor2.getNormalizedColors();
+
+        int color = colors.toColor();
+        int color2 = colors2.toColor();
+
+        float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
+        colors.red /= max;
+        colors.green /= max;
+        colors.blue /= max;
+        color = colors.toColor();
+
+        float max2 = Math.max(Math.max(Math.max(colors2.red, colors2.green), colors2.blue), colors2.alpha);
+        colors2.red /= max2;
+        colors2.green /= max2;
+        colors2.blue /= max2;
+        color2 = colors2.toColor();
+
+
+        telemetry.addLine("normalized color 18: ")
+                .addData("a", "%d", Color.alpha(color))
+                .addData("r", "%d", Color.red(color))
+                .addData("g", "%d", Color.green(color))
+                .addData("b", "%d", Color.blue(color));
+
+        if (Color.red(color) < 300 && Color.red(color) > 115) {
+            telemetry.addLine("Got Yellow");
+            telemetry.update();
+            return 1; // 1 = true
+        }
+
+        if (Color.red(color2) < 300 && Color.red(color2) > 115) {
+            telemetry.addLine("Got Yellow2");
+            telemetry.update();
+            return 2; // 2 = true
+        }
+
+        int got_color = getcubecolor();
+        if (got_color == 1) {
+
+        }
+
+        telemetry.addLine("nope");
+        telemetry.update();
+        return 0;  // 0 = false
     }
 
 }
