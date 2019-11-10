@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "tele69elet", group = "Tutorials")
+@TeleOp(name = "tele6.9", group = "Tutorials")
 
 
 public class
@@ -65,6 +65,8 @@ telefor2 extends LinearOpMode {
 
         double arm_servo = 0.5;
 
+        double armPower = 0.1769;
+
 
 
 
@@ -94,6 +96,10 @@ telefor2 extends LinearOpMode {
 
             if (gamepad1.b) {
                 motorSpeed = 0.4;
+            }
+
+            if (gamepad1.x) {
+                motorSpeed = 0.269;
             }
 
 
@@ -216,8 +222,17 @@ telefor2 extends LinearOpMode {
 
 
 
-                ArmMotor_Left.setPower(gamepad2.left_stick_y * -0.1769);
-                ArmMotor_Right.setPower(gamepad2.left_stick_y * 0.1769);
+                ArmMotor_Left.setPower(gamepad2.left_stick_y * -armPower);
+                ArmMotor_Right.setPower(gamepad2.left_stick_y * armPower);
+
+                if(gamepad2.a){
+                    armPower = 0.269;
+                }
+
+
+                if(gamepad2.b){
+                    armPower = 0.1769;
+                }
 
 
 
