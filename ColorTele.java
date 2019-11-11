@@ -9,11 +9,13 @@ import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 
 @TeleOp(name = "colortelev", group = "Tutorials")
 public class ColorTele extends LinearOpMode {
     NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
+    TouchSensor touch;
 
 
     @Override
@@ -21,6 +23,8 @@ public class ColorTele extends LinearOpMode {
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
 
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
+
+        touch =  hardwareMap.touchSensor.get("touch_sensor");
 
         waitForStart();
 
@@ -31,6 +35,11 @@ public class ColorTele extends LinearOpMode {
 
             int color = colors.toColor();
             int color2 = colors2.toColor();
+
+            int pressed = 0;
+            if(touch.isPressed())
+                pressed = 1;
+
 
             float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
             colors.red /= max;
@@ -54,7 +63,8 @@ public class ColorTele extends LinearOpMode {
                     .addData("a2","%d",Color.alpha(color2))
                     .addData("r2", "%d", Color.red(color2))
                     .addData("b2", "%d", Color.blue(color2))
-                    .addData("g2","%d",Color.green(color2));
+                    .addData("g2","%d",Color.green(color2))
+                    .addData("touch","%d", pressed);
 
 
             telemetry.update();
