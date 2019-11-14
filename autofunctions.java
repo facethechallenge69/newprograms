@@ -8,6 +8,9 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 import android.graphics.Color;
@@ -18,6 +21,8 @@ import static android.graphics.Color.YELLOW;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
+
+import com.qualcomm.robotcore.hardware.GyroSensor;
 
 public class autofunctions
 {
@@ -282,15 +287,14 @@ public class autofunctions
         motorL_Up.setPower(Power);
         motorL_Down.setPower(-Power);
 
-        /*while(opModeIsActive()&&!isStopRequested()){
-        angles = imy.getAngularOrientation(AxesREference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        while(motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         telemetry.addData("Heading:", angles.firstAngle);
         telemetry.addData("Roll:", angles.secondAngle);
         telemetry.addData("Pitch:", angles.thirdAngle);
         telemetry.update();
-        sleep(3295);
-
-        }*/
+        }
 
     }
 
@@ -412,20 +416,21 @@ public class autofunctions
                 .addData("g", "%d", Color.green(color))
                 .addData("b", "%d", Color.blue(color));
 
-        if (Color.red(color) < 300 && Color.red(color) > 115) {
+        if (Color.red(color) < 100 && Color.red(color) > 80) {
             telemetry.addLine("Got Yellow");
             telemetry.update();
             return 1; // 1 = true
         }
 
-        if (Color.red(color2) < 300 && Color.red(color2) > 115) {
+        if (Color.red(color2) < 100 && Color.red(color2) > 80) {
             telemetry.addLine("Got Yellow2");
             telemetry.update();
             return 2; // 2 = true
         }
 
         int got_color = getcubecolor();
-        if (got_color == 1) {
+        if (got_color == 1)
+        {
 
         }
 
