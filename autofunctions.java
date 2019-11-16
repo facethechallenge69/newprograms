@@ -88,12 +88,14 @@ public class autofunctions
 
     public void DriveForward(double Power, int Distance)
     {
-        AllBREAK();
+
 
         motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        AllBRAKE();
 
         motorL_Down.setTargetPosition(-Distance);
         motorL_Up.setTargetPosition(-Distance);
@@ -126,7 +128,7 @@ public class autofunctions
 
     public void TurnLeft(double Power, int Distance)
     {
-        AllBREAK();
+        AllFLOAT();
 
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -162,7 +164,7 @@ public class autofunctions
 
     public void TurnRight(double Power, int Distance)
     {
-        AllBREAK();
+        AllFLOAT();
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -195,7 +197,7 @@ public class autofunctions
 
     public void StrafeRight(double Power, int Distance)
     {
-        AllBREAK();
+        AllFLOAT();
 
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -229,7 +231,7 @@ public class autofunctions
 
     public void StrafeLeft(double Power, int Distance)
     {
-        AllBREAK();
+        AllFLOAT();
 
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -263,7 +265,7 @@ public class autofunctions
 
     public void StrafeLeftkazar4 (double Power, int Distance)
     {
-        AllBREAK();
+        AllFLOAT();
 
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -300,7 +302,7 @@ public class autofunctions
 
     public void StrafeLeftColor (double Power, int Distance)
     {
-        AllBREAK();
+        AllFLOAT();
 
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -382,7 +384,7 @@ public class autofunctions
         motorL_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
     }
 
-    public void AllBREAK ()
+    public void AllBRAKE ()
     {
         motorR_Down.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorL_Down.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
