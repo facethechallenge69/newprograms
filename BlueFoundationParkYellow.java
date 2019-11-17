@@ -81,19 +81,18 @@ public class BlueFoundationParkYellow extends LinearOpMode
         ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
         auto_functions.Initialize(motorL_Down,
                 motorR_Down,
                 motorR_Up,
                 motorL_Up,
-                ArmMotor_Left,
-                ArmMotor_Right,
                 RedServo,
                 BlackServo,
+                ArmMotor_Left,
+                ArmMotor_Right,
                 armservo,
                 imu,
-                telemetry);
 
+                telemetry);
         auto_functions.ServoUp();
 
         waitForStart();

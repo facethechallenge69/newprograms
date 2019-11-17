@@ -30,8 +30,7 @@ public class autofunctions
     private DcMotor motorL_Down;
     private DcMotor motorR_Up;
     private DcMotor motorR_Down;
-    private DcMotor motor_UpDown;
-    private DcMotor motor_SideSide;
+
 
     private Servo RedServo;
     private Servo BlackServo;
@@ -56,10 +55,10 @@ public class autofunctions
                            DcMotor motorR_DownIn,
                            DcMotor motorR_UpIn,
                            DcMotor motorL_UpIn,
-                           DcMotor motor_UpDownIn,
-                           DcMotor motor_SideSideIn,
                            Servo RedServoIn,
                            Servo BlackServoIn,
+                           DcMotor ArmMotor_LeftIn,
+                           DcMotor ArmMotor_RightIn,
                            Servo ArmServoIn,
                            BNO055IMU imuIn,
 
@@ -69,10 +68,11 @@ public class autofunctions
         motorR_Down = motorR_DownIn;
         motorR_Up = motorR_UpIn;
         motorL_Up = motorL_UpIn;
-        motor_UpDown = motor_UpDownIn;
-        motor_SideSide = motor_SideSideIn;
+
         RedServo = RedServoIn;
         BlackServo = BlackServoIn;
+        ArmMotor_Left = ArmMotor_LeftIn;
+        ArmMotor_Right = ArmMotor_RightIn;
         armservo = ArmServoIn;
         imu = imuIn;
 
@@ -271,6 +271,36 @@ public class autofunctions
         StopDriving();
     }
 
+    public void ArmUpDown    (double Power, int Distance)
+    {
+        ArmMotor_Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ArmMotor_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ArmMotor_Left.setTargetPosition(Distance);
+        ArmMotor_Left.setPower(-Power);
+        ArmMotor_Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ArmMotor_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ArmMotor_Right.setTargetPosition(Distance);
+        ArmMotor_Right.setPower(Power);
+
+        while (ArmMotor_Left.isBusy() && ArmMotor_Right.isBusy())
+        {
+            //Wait until the task is done
+        }
+
+        StopDriving();
+
+    }
+
+
+   public void CloseServo ()
+   {
+       armservo.setPosition(1);
+   }
+
+   public void OpenServo ()
+   {
+       armservo.setPosition(0);
+   }
     public void StrafeLeftkazar4 (double Power, int Distance)
     {
 
@@ -371,22 +401,12 @@ public class autofunctions
         motorR_Up.setPower(0);
         motorR_Down.setPower(0);
 
-    }
-    public void ArmLeftRight (double Power, int Distance)
-    {
-        motor_SideSide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor_SideSide.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor_SideSide.setTargetPosition(Distance);
-        motor_SideSide.setPower(Power);
+        ArmMotor_Right.setPower(0);
+        ArmMotor_Right.setPower(0);
+
     }
 
-    public void ArmUpDown    (double Power, int Distance)
-    {
-        motor_UpDown.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motor_UpDown.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motor_UpDown.setTargetPosition(Distance);
-        motor_UpDown.setPower(Power);
-    }
+
 
     public void AllFLOAT ()
     {

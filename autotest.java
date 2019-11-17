@@ -82,17 +82,19 @@ public class autotest extends LinearOpMode
       ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-        auto_functions.Initialize(motorL_Down,
-                motorR_Down,
-                motorR_Up,
-                motorL_Up,
-                ArmMotor_Left,
-                ArmMotor_Right,
-                RedServo,
-                BlackServo,
-                armservo,
-                imu,
-                telemetry);
+
+         auto_functions.Initialize(motorL_Down,
+            motorR_Down,
+             motorR_Up,
+             motorL_Up,
+            RedServo,
+            BlackServo,
+           ArmMotor_Left,
+           ArmMotor_Right,
+           armservo,
+           imu,
+
+          telemetry);
 
         //Waiting for the user to press start
         waitForStart();
@@ -139,7 +141,18 @@ public class autotest extends LinearOpMode
             {
                 auto_functions.StrafeRight(encoder_speed,encoder_tics);
             }
+            if (gamepad2.dpad_up)
+            {
+                auto_functions.ArmUpDown(encoder_speed, encoder_tics);
+            }
 
+            if (gamepad1.right_bumper) {
+                auto_functions.CloseServo();
+            }
+
+            if (gamepad1.left_bumper) {
+                auto_functions.OpenServo();
+            }
 
             telemetry.addData("encoder distance %d", encoder_tics);
             telemetry.addData("encoder speed %f", encoder_speed);

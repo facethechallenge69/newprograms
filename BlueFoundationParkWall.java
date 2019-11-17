@@ -86,12 +86,13 @@ public class BlueFoundationParkWall extends LinearOpMode
                 motorR_Down,
                 motorR_Up,
                 motorL_Up,
-                ArmMotor_Left,
-                ArmMotor_Right,
                 RedServo,
                 BlackServo,
+                ArmMotor_Left,
+                ArmMotor_Right,
                 armservo,
                 imu,
+
                 telemetry);
 
         auto_functions.ServoUp();
