@@ -274,12 +274,15 @@ public class autofunctions
     public void ArmUpDown    (double Power, int Distance)
     {
         ArmMotor_Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ArmMotor_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        ArmMotor_Left.setTargetPosition(Distance);
-        ArmMotor_Left.setPower(-Power);
         ArmMotor_Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ArmMotor_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ArmMotor_Left.setTargetPosition(-Distance);
         ArmMotor_Right.setTargetPosition(Distance);
+
+        ArmMotor_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ArmMotor_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ArmMotor_Left.setPower(Power);
         ArmMotor_Right.setPower(Power);
 
         while (ArmMotor_Left.isBusy() && ArmMotor_Right.isBusy())

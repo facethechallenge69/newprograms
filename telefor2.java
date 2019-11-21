@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "tele6.9..", group = "Tutorials")
+@TeleOp(name = "tele6.9.", group = "Tutorials")
 
 public class telefor2 extends LinearOpMode {
     private DcMotor motorL_Down;

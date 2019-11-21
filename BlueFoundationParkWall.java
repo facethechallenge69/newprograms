@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueFoundationWallPark", group = "Tutorials")
+@Autonomous(name = "Cr*p Foundation Wall Park", group = "Tutorials")
 public class BlueFoundationParkWall extends LinearOpMode
 {
     private DcMotor motorL_Up;

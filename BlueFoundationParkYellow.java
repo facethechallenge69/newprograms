@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueFoundationYellowPark", group = "Tutorials")
+@Autonomous(name = "Cr*p Yellow Park", group = "Tutorials")
 public class BlueFoundationParkYellow extends LinearOpMode
 {
     private DcMotor motorL_Up;

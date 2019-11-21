@@ -22,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
-@Autonomous(name = "BlueFoundationWallPark", group = "Tutorials")
+@Autonomous(name = "gyrotest69", group = "Tutorials")
 public class GyroSample_v_2 extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -43,7 +43,7 @@ public class GyroSample_v_2 extends LinearOpMode
     BNO055IMU imu;
 
     Orientation             lastAngles = new Orientation();
-    double                  globalAngle, power = .30, correction;
+    double                  globalAngle, power = .169, correction;
 
     NormalizedColorSensor colorSensor;
     NormalizedColorSensor colorSensor2;
@@ -126,10 +126,10 @@ public class GyroSample_v_2 extends LinearOpMode
                 motorR_Down,
                 motorR_Up,
                 motorL_Up,
-                ArmMotor_Left,
-                ArmMotor_Right,
                 RedServo,
                 BlackServo,
+                ArmMotor_Left,
+                ArmMotor_Right,
                 armservo,
                 imu,
                 telemetry);

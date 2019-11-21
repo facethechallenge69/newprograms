@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueFoundationWallPark", group = "Tutorials")
+@Autonomous(name = "Cr*p Block", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -101,22 +101,25 @@ public class BlueBlocks extends LinearOpMode
 
         auto_functions.DriveForward(0.25, -1600);
 
-        auto_functions.StrafeLeft(0.15, 200);
+        sleep(2000);
+
+        auto_functions.StrafeRight(0.25, 250);
+
+        sleep(2000);
+
+        auto_functions.StrafeRight(0.25, 575);
+        //Gyro
+        sleep(2000);
+        auto_functions.StrafeRight(0.25,575);
+        //Gyro
+        sleep(2000);
+        auto_functions.StrafeRight(0.125,575);
         //Gyro
 
-        auto_functions.StrafeLeft(0.15,400);
+        sleep(2000);
         //Gyro
 
-        auto_functions.StrafeLeft(0.15,400);
-        //Gyro
 
-        auto_functions.StrafeLeft(0.15,400);
-        //Gyro
-
-        auto_functions.StrafeLeft(0.15,400);
-        //Gyro
-
-        auto_functions.StrafeLeft(0.15,400);
         //Gyro
     }
 }
