@@ -42,6 +42,10 @@ public class autofunctions
 
 
     private ElapsedTime runtime = new ElapsedTime();
+
+    Orientation             lastAngles = new Orientation();
+    double                  globalAngle, power = .169, correction;
+
     BNO055IMU imu;
 
     Orientation angles;
@@ -61,6 +65,8 @@ public class autofunctions
                            DcMotor ArmMotor_RightIn,
                            Servo ArmServoIn,
                            BNO055IMU imuIn,
+                           NormalizedColorSensor colorSensor1In,
+                           NormalizedColorSensor colorSensor2In,
 
                            Telemetry telemetryIn)
     {
@@ -75,6 +81,8 @@ public class autofunctions
         ArmMotor_Right = ArmMotor_RightIn;
         armservo = ArmServoIn;
         imu = imuIn;
+        colorSensor1 = colorSensor1In;
+        colorSensor2 = colorSensor2In;
 
         telemetry = telemetryIn;
 
@@ -282,7 +290,7 @@ public class autofunctions
         ArmMotor_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         ArmMotor_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        ArmMotor_Left.setPower(Power);
+        ArmMotor_Left.setPower(-Power);
         ArmMotor_Right.setPower(Power);
 
         while (ArmMotor_Left.isBusy() && ArmMotor_Right.isBusy())
@@ -304,42 +312,11 @@ public class autofunctions
    {
        armservo.setPosition(0);
    }
-    public void StrafeLeftkazar4 (double Power, int Distance)
+
+    public void StrafeRightColor (double Power, int Distance)
     {
 
 
-        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        AllBRAKE();
-
-        motorR_Up.setTargetPosition(Distance);
-        motorR_Down.setTargetPosition(-Distance);
-        motorL_Up.setTargetPosition(Distance);
-        motorL_Down.setTargetPosition(-Distance);
-
-
-        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        motorR_Up.setPower(Power);
-        motorR_Down.setPower(-Power);
-        motorL_Up.setPower(Power);
-        motorL_Down.setPower(-Power);
-
-        while(motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
-        {
-        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        telemetry.addData("Heading:", angles.firstAngle);
-        telemetry.addData("Roll:", angles.secondAngle);
-        telemetry.addData("Pitch:", angles.thirdAngle);
-        telemetry.update();
-        }
 
     }
 
@@ -351,6 +328,7 @@ public class autofunctions
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         AllBRAKE();
 
@@ -378,6 +356,8 @@ public class autofunctions
             {
                 break;
             }
+
+
         }
 
         StopDriving();
@@ -427,6 +407,19 @@ public class autofunctions
         motorL_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
     }
 
+    public void getcube()
+    {
+
+        DriveForward(0.15, 500);
+
+        ArmUpDown(0.35, 1000);
+        OpenServo();
+        ArmUpDown(0.35, 969);
+        DriveForward(0.15, -269);
+        CloseServo();
+        DriveForward(0.15,569);
+    }
+
     public int getcubecolor() {
         NormalizedRGBA colors = colorSensor1.getNormalizedColors();
         NormalizedRGBA colors2 = colorSensor2.getNormalizedColors();
@@ -453,22 +446,10 @@ public class autofunctions
                 .addData("g", "%d", Color.green(color))
                 .addData("b", "%d", Color.blue(color));
 
-        if (Color.red(color) < 100 && Color.red(color) > 80) {
-            telemetry.addLine("Got Yellow");
+        if (Color.red(color) < 100 && Color.red(color) > 0 && Color.red(color2) < 100 && Color.red(color2) > 0) {
+            telemetry.addLine("Got black");
             telemetry.update();
             return 1; // 1 = true
-        }
-
-        if (Color.red(color2) < 100 && Color.red(color2) > 80) {
-            telemetry.addLine("Got Yellow2");
-            telemetry.update();
-            return 2; // 2 = true
-        }
-
-        int got_color = getcubecolor();
-        if (got_color == 1)
-        {
-
         }
 
         telemetry.addLine("nope");

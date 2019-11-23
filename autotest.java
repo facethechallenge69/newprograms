@@ -83,18 +83,20 @@ public class autotest extends LinearOpMode
 
 
 
-         auto_functions.Initialize(motorL_Down,
-            motorR_Down,
-             motorR_Up,
-             motorL_Up,
-            RedServo,
-            BlackServo,
-           ArmMotor_Left,
-           ArmMotor_Right,
-           armservo,
-           imu,
+        auto_functions.Initialize(motorL_Down,
+                motorR_Down,
+                motorR_Up,
+                motorL_Up,
+                RedServo,
+                BlackServo,
+                ArmMotor_Left,
+                ArmMotor_Right,
+                armservo,
+                imu,
+                colorSensor,
+                colorSensor2,
 
-          telemetry);
+                telemetry);
 
         //Waiting for the user to press start
         waitForStart();

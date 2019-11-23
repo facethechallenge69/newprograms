@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-@TeleOp(name = "colortelev", group = "Tutorials")
+@TeleOp(name = "colortele", group = "Tutorials")
 public class ColorTele extends LinearOpMode {
     NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
@@ -67,6 +67,21 @@ public class ColorTele extends LinearOpMode {
                     .addData("touch","%d", pressed);
 
 
+
+
+            if (Color.red(color) < 100 && Color.red(color) > 0) {
+                telemetry.addLine("Got black");
+
+
+            }
+
+            if (Color.red(color2) < 100 && Color.red(color2) > 0) {
+                telemetry.addLine("Got black2");
+
+
+            }
+
+            telemetry.addLine("nope");
             telemetry.update();
         }
     }

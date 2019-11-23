@@ -91,6 +91,8 @@ public class BlueFoundationParkYellow extends LinearOpMode
                 ArmMotor_Right,
                 armservo,
                 imu,
+                colorSensor,
+                colorSensor2,
 
                 telemetry);
         auto_functions.ServoUp();

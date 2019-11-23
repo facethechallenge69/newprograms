@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.newprograms;
+/*package org.firstinspires.ftc.teamcode.newprograms;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
@@ -22,7 +22,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
-@Autonomous(name = "gyrotest69", group = "Tutorials")
+@Autonomous(name = "69gyrotest9", group = "Tutorials")
 public class GyroSample_v_2 extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -43,7 +43,7 @@ public class GyroSample_v_2 extends LinearOpMode
     BNO055IMU imu;
 
     Orientation             lastAngles = new Orientation();
-    double                  globalAngle, power = .169, correction;
+    double                  globalAngle, power = 0.3, correction;
 
     NormalizedColorSensor colorSensor;
     NormalizedColorSensor colorSensor2;
@@ -72,12 +72,8 @@ public class GyroSample_v_2 extends LinearOpMode
 
 
 
-        motorL_Down.setDirection(DcMotor.Direction.REVERSE);
+        motorR_Up.setDirection(DcMotor.Direction.REVERSE);
         motorL_Up.setDirection(DcMotor.Direction.REVERSE);
-
-
-
-
 
         int encoder_tics = 0;
         double encoder_speed = 0;
@@ -164,9 +160,9 @@ public class GyroSample_v_2 extends LinearOpMode
 
 
     }
-    /**
+
      * Resets the cumulative angle tracking to zero.
-     */
+
     private void resetAngle()
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -174,16 +170,8 @@ public class GyroSample_v_2 extends LinearOpMode
         globalAngle = 0;
     }
 
-    /**
-     * Get current cumulative angle rotation from last reset.
-     * @return Angle in degrees. + = left, - = right.
-     */
     private double getAngle()
     {
-        // We experimentally determined the Z axis is the axis we want to use for heading angle.
-        // We have to process the angle because the imu works in euler angles so the Z axis is
-        // returned as 0 to +180 or 0 to -180 rolling back to -179 or +179 when rotation passes
-        // 180 degrees. We detect this transition and track the total cumulative angle of rotation.
 
         Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
@@ -201,15 +189,8 @@ public class GyroSample_v_2 extends LinearOpMode
         return globalAngle;
     }
 
-    /**
-     * See if we are moving in a straight line and if not return a power correction value.
-     * @return Power adjustment, + is adjust left - is adjust right.
-     */
     private double checkDirection()
     {
-        // The gain value determines how sensitive the correction is to direction changes.
-        // You will have to experiment with your robot to get small smooth direction changes
-        // to stay on a straight line.
         double correction, angle, gain = .10;
 
         angle = getAngle();
@@ -224,10 +205,6 @@ public class GyroSample_v_2 extends LinearOpMode
         return correction;
     }
 
-    /**
-     * Rotate left or right the number of degrees. Does not support turning more than 180 degrees.
-     * @param degrees Degrees to turn, + is left - is right
-     */
     private void rotate(int degrees, double power)
     {
         double  leftPower, rightPower;
@@ -281,3 +258,5 @@ public class GyroSample_v_2 extends LinearOpMode
     }
 
 }
+
+*/

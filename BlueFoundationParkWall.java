@@ -92,6 +92,8 @@ public class BlueFoundationParkWall extends LinearOpMode
                 ArmMotor_Right,
                 armservo,
                 imu,
+                colorSensor,
+                colorSensor2,
 
                 telemetry);
 
