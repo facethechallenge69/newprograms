@@ -18,6 +18,7 @@ import android.os.SystemClock;
 
 import static android.graphics.Color.WHITE;
 import static android.graphics.Color.YELLOW;
+import static android.os.SystemClock.sleep;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -410,14 +411,22 @@ public class autofunctions
     public void getcube()
     {
 
+        StrafeLeft(0.15, 200);
+        sleep(100);
         DriveForward(0.15, 500);
-
-        ArmUpDown(0.35, 1000);
+        sleep(1000);
+        ArmUpDown(0.35, 1800);
+        sleep(1000);
         OpenServo();
-        ArmUpDown(0.35, 969);
-        DriveForward(0.15, -269);
+        sleep(1000);
+        ArmUpDown(0.35, 200);
+        sleep(200);
+        DriveForward(0.15,-500);
+        sleep(1000);
         CloseServo();
-        DriveForward(0.15,569);
+        sleep(1000);
+        ArmUpDown(0.35, -500);
+        sleep(1000);
     }
 
     public int getcubecolor() {

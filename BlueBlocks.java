@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "Cr*p (Amutha) Block 69", group = "Tutorials")
+@Autonomous(name = "BlueBlock", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -117,5 +117,33 @@ public class BlueBlocks extends LinearOpMode
         auto_functions.StrafeLeftColor(0.125, 2500);
 
         auto_functions.getcube();
+
+        sleep(100);
+
+        auto_functions.DriveForward(0.35, 200);
+
+        sleep(100);
+
+        auto_functions.TurnLeft(0.35,1150);
+
+        sleep(100);
+
+        auto_functions.ArmUpDown(0.35, 200);
+
+        sleep(100);
+
+        auto_functions.DriveForward(0.35, -3500);
+
+        sleep(100);
+
+        auto_functions.OpenServo();
+
+        auto_functions.DriveForward(0.35, 3500);
+
+        auto_functions.ArmUpDown(0.35, -200);
+
+        auto_functions.TurnRight(0.35,1150);
+
+
     }
 }
