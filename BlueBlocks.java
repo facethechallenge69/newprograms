@@ -15,7 +15,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueBlock", group = "Tutorials")
+@Autonomous(name = "69blockjoshi69", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -41,6 +41,8 @@ public class BlueBlocks extends LinearOpMode
     NormalizedColorSensor colorSensor2;
 
     autofunctions auto_functions = new autofunctions();
+
+    int CurrentPosition = 0;
 
 
     //  Telemetry telemetry = new Telemetry();
@@ -110,11 +112,13 @@ public class BlueBlocks extends LinearOpMode
 
         sleep(250);
 
-        auto_functions.StrafeLeft(0.25, 250);
+        auto_functions.StrafeLeft(0.35,225);
+
+        CurrentPosition = auto_functions.StrafeLeftColor(0.125, 2750);
+        if(CurrentPosition < 0)
+            CurrentPosition = CurrentPosition * -1;
 
         sleep(250);
-
-        auto_functions.StrafeLeftColor(0.125, 2500);
 
         auto_functions.getcube();
 
@@ -124,7 +128,7 @@ public class BlueBlocks extends LinearOpMode
 
         sleep(100);
 
-        auto_functions.TurnLeft(0.35,1150);
+        auto_functions.TurnLeft(0.35,1250);
 
         sleep(100);
 
@@ -132,17 +136,14 @@ public class BlueBlocks extends LinearOpMode
 
         sleep(100);
 
-        auto_functions.DriveForward(0.35, -3500);
+        telemetry.addData("CurrentPosition", "%d", CurrentPosition);
+        auto_functions.DriveForward(0.5, -3500-CurrentPosition);
 
         sleep(100);
 
         auto_functions.OpenServo();
 
-        auto_functions.DriveForward(0.35, 3500);
-
-        auto_functions.ArmUpDown(0.35, -200);
-
-        auto_functions.TurnRight(0.35,1150);
+        auto_functions.DriveForward(0.35, 2250);
 
 
     }
