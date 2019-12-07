@@ -100,6 +100,11 @@ public class autotest extends LinearOpMode
 
                 telemetry);
 
+
+
+        //Waiting for the user to press start
+        waitForStart();
+
         telemetry.addLine("gampad1.a = + 50 encoder tics");
         telemetry.addLine("gampad1.x = - 50 encoder tics");
         telemetry.addLine("gampad1.b = + 0.05 encoder speed");
@@ -117,10 +122,7 @@ public class autotest extends LinearOpMode
 
         telemetry.addLine("gampad1.right_bumper = close servo");
         telemetry.addLine("gampad1.left_bumper = open servo");
-
-
-        //Waiting for the user to press start
-        waitForStart();
+        telemetry.update();
 
         while (opModeIsActive())
         {
@@ -186,20 +188,34 @@ public class autotest extends LinearOpMode
                 auto_functions.OpenServo();
             }
 
-            if(last_encoder_tics != encoder_tics)
+            if((last_encoder_tics != encoder_tics) || (last_encode_speed !=  encoder_speed))
             {
                 last_encoder_tics = encoder_tics;
-                telemetry.addData("encoder distance %d", encoder_tics);
-                telemetry.update();
-            }
-            if(last_encode_speed !=  encoder_speed)
-            {
                 last_encode_speed = encoder_speed;
+                telemetry.addData("encoder distance %d", encoder_tics);
                 telemetry.addData("encoder speed %f", encoder_speed);
+
+                telemetry.addLine("gampad1.a = + 50 encoder tics");
+                telemetry.addLine("gampad1.x = - 50 encoder tics");
+                telemetry.addLine("gampad1.b = + 0.05 encoder speed");
+                telemetry.addLine("gampad1.y = - 0.05 encoder speed");
+
+                telemetry.addLine("gampad1.dpad_up = driveforward");
+                telemetry.addLine("gampad1.dpad_left = turnleft");
+                telemetry.addLine("gampad1.dpad_right = turnright");
+                telemetry.addLine("gampad1.dpad_down = driveforward");
+
+                telemetry.addLine("gampad2.dpad_right = straferight");
+                telemetry.addLine("gampad2.dpad_left = strafeleft");
+                telemetry.addLine("gampad2.dpad_right = turnright");
+                telemetry.addLine("gampad1.dpad_up = armUpDown");
+
+                telemetry.addLine("gampad1.right_bumper = close servo");
+                telemetry.addLine("gampad1.left_bumper = open servo");
+
                 telemetry.update();
-
             }
-
+            
 
 
 
