@@ -18,6 +18,7 @@ import android.os.SystemClock;
 
 import static android.graphics.Color.WHITE;
 import static android.graphics.Color.YELLOW;
+import static android.os.SystemClock.sleep;
 
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.util.Range;
@@ -320,9 +321,10 @@ public class autofunctions
 
     }
 
-    public void StrafeLeftColor (double Power, int Distance)
+    public int StrafeLeftColor (double Power, int Distance)
     {
 
+        int CurrentPosition = 0;
 
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -354,6 +356,7 @@ public class autofunctions
             int got_color = getcubecolor();
             if (got_color == 1)
             {
+                CurrentPosition = motorR_Up.getCurrentPosition();
                 break;
             }
 
@@ -361,6 +364,8 @@ public class autofunctions
         }
 
         StopDriving();
+
+        return CurrentPosition;
 
     }
 
@@ -410,14 +415,20 @@ public class autofunctions
     public void getcube()
     {
 
-        DriveForward(0.15, 500);
-
-        ArmUpDown(0.35, 1000);
+        DriveForward(0.15, 650);
+        sleep(250);
+        ArmUpDown(0.35, 1800);
+        sleep(250);
         OpenServo();
-        ArmUpDown(0.35, 969);
-        DriveForward(0.15, -269);
+        sleep(569);
+        ArmUpDown(0.35, 200);
+        sleep(569);
+        DriveForward(0.15,-600);
+        sleep(569);
         CloseServo();
-        DriveForward(0.15,569);
+        sleep(569);
+        ArmUpDown(0.35, -500);
+        sleep(569);
     }
 
     public int getcubecolor() {
@@ -446,7 +457,7 @@ public class autofunctions
                 .addData("g", "%d", Color.green(color))
                 .addData("b", "%d", Color.blue(color));
 
-        if (Color.red(color) < 100 && Color.red(color) > 0 && Color.red(color2) < 100 && Color.red(color2) > 0) {
+        if (Color.red(color) < 85 && Color.red(color) > 0 && Color.red(color2) < 85 && Color.red(color2) > 0) {
             telemetry.addLine("Got black");
             telemetry.update();
             return 1; // 1 = true
