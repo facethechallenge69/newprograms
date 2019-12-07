@@ -15,8 +15,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueBlocks", group = "Tutorials")
-public class BlueBlocks extends LinearOpMode
+@Autonomous(name = "RedBlocksWall", group = "Tutorials")
+public class RedBlocksWall extends LinearOpMode
 {
     private DcMotor motorL_Up;
     private DcMotor motorL_Down;
@@ -112,9 +112,9 @@ public class BlueBlocks extends LinearOpMode
 
         sleep(250);
 
-        auto_functions.StrafeLeft(0.35,225);
+        auto_functions.StrafeRight(0.35,225);
 
-        CurrentPosition = auto_functions.StrafeLeftColor(0.125, 2750);
+        CurrentPosition = auto_functions.StrafeRightColor(0.125, 2750);
         if(CurrentPosition < 0)
             CurrentPosition = CurrentPosition * -1;
 
@@ -144,6 +144,8 @@ public class BlueBlocks extends LinearOpMode
         auto_functions.OpenServo();
 
         auto_functions.DriveForward(0.35, 2250);
+
+        auto_functions.StrafeLeft(0.35,1500);
 
 
     }

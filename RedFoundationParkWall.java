@@ -15,8 +15,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueBlocks", group = "Tutorials")
-public class BlueBlocks extends LinearOpMode
+@Autonomous(name = "RedFoundWallPark", group = "Tutorials")
+public class RedFoundationParkWall extends LinearOpMode
 {
     private DcMotor motorL_Up;
     private DcMotor motorL_Down;
@@ -37,12 +37,10 @@ public class BlueBlocks extends LinearOpMode
 
     Orientation angles;
 
-    NormalizedColorSensor colorSensor1;
+    NormalizedColorSensor colorSensor;
     NormalizedColorSensor colorSensor2;
 
     autofunctions auto_functions = new autofunctions();
-
-    int CurrentPosition = 0;
 
 
     //  Telemetry telemetry = new Telemetry();
@@ -63,11 +61,6 @@ public class BlueBlocks extends LinearOpMode
         ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
 
         armservo = hardwareMap.servo.get("arm_servo");
-
-        colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
-        colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
-
-
 
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -99,7 +92,7 @@ public class BlueBlocks extends LinearOpMode
                 ArmMotor_Right,
                 armservo,
                 imu,
-                colorSensor1,
+                colorSensor,
                 colorSensor2,
 
                 telemetry);
@@ -108,43 +101,39 @@ public class BlueBlocks extends LinearOpMode
 
         waitForStart();
 
-        auto_functions.DriveForward(0.25, -1600);
-
-        sleep(250);
-
-        auto_functions.StrafeLeft(0.35,225);
-
-        CurrentPosition = auto_functions.StrafeLeftColor(0.125, 2750);
-        if(CurrentPosition < 0)
-            CurrentPosition = CurrentPosition * -1;
-
-        sleep(250);
-
-        auto_functions.getcube();
-
+        auto_functions.DriveForward(0.45, 1000);
         sleep(100);
 
-        auto_functions.DriveForward(0.35, 200);
+        auto_functions.DriveForward(0.25,900);
+        sleep(1000);
 
+        auto_functions.ServoDown();
+        sleep(1000);
+
+        auto_functions.DriveForward(0.45, -1800);
         sleep(100);
 
-        auto_functions.TurnLeft(0.35,1250);
-
+        auto_functions.ServoUp();
         sleep(100);
 
-        auto_functions.ArmUpDown(0.35, 200);
-
+        auto_functions.StrafeLeft(0.45, 2050);
         sleep(100);
 
-        telemetry.addData("CurrentPosition", "%d", CurrentPosition);
-        auto_functions.DriveForward(0.5, -3500-CurrentPosition);
-
+        auto_functions.DriveForward(0.45, 2400);
         sleep(100);
 
-        auto_functions.OpenServo();
+        auto_functions.StrafeRight(0.45,2250);
+        sleep(100);
 
-        auto_functions.DriveForward(0.35, 2250);
+        auto_functions.DriveForward(0.45, -1300);
+        sleep(7000);
 
+        auto_functions.StrafeLeft(0.45, 2500);
+        sleep(100);
 
+        auto_functions.DriveForward(0.45,-1000);
+        sleep(100);
+
+        auto_functions.StrafeLeft(0.45,1000);
     }
 }

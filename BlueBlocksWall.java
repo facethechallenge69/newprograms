@@ -15,8 +15,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueBlocks", group = "Tutorials")
-public class BlueBlocks extends LinearOpMode
+@Autonomous(name = "BlueBlocksWall", group = "Tutorials")
+public class BlueBlocksWall extends LinearOpMode
 {
     private DcMotor motorL_Up;
     private DcMotor motorL_Down;
@@ -144,6 +144,8 @@ public class BlueBlocks extends LinearOpMode
         auto_functions.OpenServo();
 
         auto_functions.DriveForward(0.35, 2250);
+
+        auto_functions.StrafeRight(0.35,1500);
 
 
     }

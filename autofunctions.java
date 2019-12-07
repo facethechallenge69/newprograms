@@ -314,10 +314,51 @@ public class autofunctions
        armservo.setPosition(0);
    }
 
-    public void StrafeRightColor (double Power, int Distance)
+    public int StrafeRightColor (double Power, int Distance)
     {
 
+        int CurrentPosition = 0;
 
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        AllBRAKE();
+
+        motorR_Up.setTargetPosition(-Distance);
+        motorR_Down.setTargetPosition(Distance);
+        motorL_Up.setTargetPosition(-Distance);
+        motorL_Down.setTargetPosition(Distance);
+
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        motorR_Up.setPower(-Power);
+        motorR_Down.setPower(Power);
+        motorL_Up.setPower(-Power);
+        motorL_Down.setPower(Power);
+
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+            int got_color = getcubecolor();
+            if (got_color == 1)
+            {
+                CurrentPosition = motorR_Up.getCurrentPosition();
+                break;
+            }
+
+
+        }
+
+        StopDriving();
+
+        return CurrentPosition;
 
     }
 
