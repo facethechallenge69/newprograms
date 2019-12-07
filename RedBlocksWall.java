@@ -128,7 +128,7 @@ public class RedBlocksWall extends LinearOpMode
 
         sleep(100);
 
-        auto_functions.TurnLeft(0.35,1250);
+        auto_functions.TurnRight(0.35,1250);
 
         sleep(100);
 
