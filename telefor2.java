@@ -6,9 +6,10 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "tele6.9.", group = "Tutorials")
+@TeleOp(name = "tele6.9", group = "Tutorials")
 
-public class telefor2 extends LinearOpMode {
+public class
+telefor2 extends LinearOpMode {
     private DcMotor motorL_Down;
     private DcMotor motorR_Down;
     private DcMotor motorR_Up;
@@ -88,7 +89,7 @@ public class telefor2 extends LinearOpMode {
             //moves wheels forward and backward
 
             if (gamepad1.a) {
-                motorSpeed = 1;
+                motorSpeed = 0.769;
             }
 
             if (gamepad1.b) {
@@ -104,17 +105,25 @@ public class telefor2 extends LinearOpMode {
             //incremental movement for RedServo
 
 
-
+//
 
             //moves mecanum wheels forward and backward
 
-            if(moving == 0 && gamepad1.left_stick_y !=0 ) {
-
+            if(moving == 0 && gamepad1.left_stick_y < 0 ) {
+// should be forward
                 moving = MOV_FRONT_BACK;
-                motorL_Down.setPower(motorSpeed * -gamepad1.left_stick_y);
-                motorR_Down.setPower(motorSpeed * gamepad1.left_stick_y);
-                motorL_Up.setPower(motorSpeed * -gamepad1.left_stick_y);
-                motorR_Up.setPower(motorSpeed * gamepad1.left_stick_y);
+                motorL_Down.setPower(motorSpeed * -1);
+                motorR_Down.setPower(motorSpeed * 1);
+                motorL_Up.setPower(motorSpeed * -1);
+                motorR_Up.setPower(motorSpeed * 1);
+            }
+            if(moving == 0 && gamepad1.left_stick_y > 0 ) {
+// should be backward
+                moving = MOV_FRONT_BACK;
+                motorL_Down.setPower(motorSpeed * 1);
+                motorR_Down.setPower(motorSpeed * -1);
+                motorL_Up.setPower(motorSpeed * 1);
+                motorR_Up.setPower(motorSpeed * -1);
             }
             else if(gamepad1.left_stick_y ==0 && moving == MOV_FRONT_BACK)
             {
@@ -124,14 +133,25 @@ public class telefor2 extends LinearOpMode {
 
             //turns mecanum wheels left and right
 
-            if(moving == 0 && gamepad1.left_stick_x !=0 ) {
-
+            if(moving == 0 && gamepad1.left_stick_x < 0 ) {
+// should be right
                 moving = MOV_LEFT_RIGHT;
                 motorL_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
                 motorR_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
                 motorL_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
                 motorR_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
             }
+
+            if(moving == 0 && gamepad1.left_stick_x > 0 ) {
+// should be left
+                moving = MOV_LEFT_RIGHT;
+                motorL_Down.setPower(motorSpeed * gamepad1.left_stick_x);
+                motorR_Down.setPower(motorSpeed * gamepad1.left_stick_x);
+                motorL_Up.setPower(motorSpeed * gamepad1.left_stick_x);
+                motorR_Up.setPower(motorSpeed * gamepad1.left_stick_x);
+            }
+
+
             else if(gamepad1.left_stick_x ==0 && moving == MOV_LEFT_RIGHT)
             {
                 moving = 0;
@@ -176,41 +196,35 @@ public class telefor2 extends LinearOpMode {
                 motorR_Up.setPower(0);
             }
 
+
+
+
             // red/black servo movement
 
 
             if(gamepad2.dpad_up)
             {
-                red_value = red_value + 0.1;
-                RedServo.setPosition(red_value);
+                RedServo.setPosition(1);
+                BlackServo.setPosition(1);
             }
 
-            if(gamepad2.dpad_down)
+
+
+            if (gamepad2.dpad_down)
             {
-                red_value = red_value - 0.1;
-                RedServo.setPosition(red_value);
-            }
-
-            if (gamepad2.dpad_left) {
-                black_value = black_value + 0.1;
-                BlackServo.setPosition(black_value);
-            }
-
-            if (gamepad2.dpad_right)
-            {
-                black_value = black_value - 0.1;
-                BlackServo.setPosition(black_value);
+                BlackServo.setPosition(0);
+                RedServo.setPosition(0);
             }
 
 
             if (gamepad2.left_bumper) {
-                arm_servo = arm_servo - 0.369;
-                armservo.setPosition(arm_servo);
+           //     arm_servo = arm_servo - 0.369;
+                armservo.setPosition(0);
             }
 
             if (gamepad2.right_bumper) {
-           arm_servo = arm_servo + 0.369;
-           armservo.setPosition(arm_servo);
+         //  arm_servo = arm_servo + 0.369;
+           armservo.setPosition(1);
 
             }
 
