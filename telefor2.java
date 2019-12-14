@@ -109,7 +109,7 @@ telefor2 extends LinearOpMode {
 
             //moves mecanum wheels forward and backward
 
-            if(moving == 0 && gamepad1.left_stick_y < 0 ) {
+            if(moving == 0 && gamepad1.left_stick_y > 0 ) {
 // should be forward
                 moving = MOV_FRONT_BACK;
                 motorL_Down.setPower(motorSpeed * -1);
@@ -117,7 +117,7 @@ telefor2 extends LinearOpMode {
                 motorL_Up.setPower(motorSpeed * -1);
                 motorR_Up.setPower(motorSpeed * 1);
             }
-            if(moving == 0 && gamepad1.left_stick_y > 0 ) {
+            if(moving == 0 && gamepad1.left_stick_y < 0 ) {
 // should be backward
                 moving = MOV_FRONT_BACK;
                 motorL_Down.setPower(motorSpeed * 1);
@@ -136,19 +136,19 @@ telefor2 extends LinearOpMode {
             if(moving == 0 && gamepad1.left_stick_x < 0 ) {
 // should be right
                 moving = MOV_LEFT_RIGHT;
-                motorL_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
-                motorR_Down.setPower(motorSpeed * -gamepad1.left_stick_x);
-                motorL_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
-                motorR_Up.setPower(motorSpeed * -gamepad1.left_stick_x);
+                motorL_Down.setPower(motorSpeed * -1);
+                motorR_Down.setPower(motorSpeed * -1);
+                motorL_Up.setPower(motorSpeed * -1);
+                motorR_Up.setPower(motorSpeed * -1);
             }
 
             if(moving == 0 && gamepad1.left_stick_x > 0 ) {
 // should be left
                 moving = MOV_LEFT_RIGHT;
-                motorL_Down.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorR_Down.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorL_Up.setPower(motorSpeed * gamepad1.left_stick_x);
-                motorR_Up.setPower(motorSpeed * gamepad1.left_stick_x);
+                motorL_Down.setPower(motorSpeed * 1);
+                motorR_Down.setPower(motorSpeed * 1);
+                motorL_Up.setPower(motorSpeed * 1);
+                motorR_Up.setPower(motorSpeed * 1);
             }
 
 
