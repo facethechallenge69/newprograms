@@ -183,15 +183,14 @@ public class autotest extends LinearOpMode
                 telemetry.addLine("gampad1.b = + 0.05 encoder speed");
                 telemetry.addLine("gampad1.y = - 0.05 encoder speed");
 
-                telemetry.addLine("gampad1.dpad_up = driveforward");
-                telemetry.addLine("gampad1.dpad_left = turnleft");
-                telemetry.addLine("gampad1.dpad_right = turnright");
-                telemetry.addLine("gampad1.dpad_down = driveforward");
+                telemetry.addLine("gampad1.dpad_up = drive forward");
+                telemetry.addLine("gampad1.dpad_left = turn left");
+                telemetry.addLine("gampad1.dpad_right = turn right");
+                telemetry.addLine("gampad1.dpad_down = drive back");
 
                 telemetry.addLine("gampad2.dpad_right = straferight");
                 telemetry.addLine("gampad2.dpad_left = strafeleft");
-                telemetry.addLine("gampad2.dpad_right = turnright");
-                telemetry.addLine("gampad1.dpad_up = armUpDown");
+                telemetry.addLine("gampad2.dpad_up = armUpDown");
 
                 telemetry.addLine("gampad1.right_bumper = close servo");
                 telemetry.addLine("gampad1.left_bumper = open servo");
