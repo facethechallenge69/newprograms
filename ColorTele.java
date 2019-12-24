@@ -36,11 +36,6 @@ public class ColorTele extends LinearOpMode {
             int color = colors.toColor();
             int color2 = colors2.toColor();
 
-            int pressed = 0;
-            if(touch.isPressed())
-                pressed = 1;
-
-
             float max = Math.max(Math.max(Math.max(colors.red, colors.green), colors.blue), colors.alpha);
             colors.red /= max;
             colors.green /= max;
@@ -63,9 +58,7 @@ public class ColorTele extends LinearOpMode {
                     .addData("a2","%d",Color.alpha(color2))
                     .addData("r2", "%d", Color.red(color2))
                     .addData("b2", "%d", Color.blue(color2))
-                    .addData("g2","%d",Color.green(color2))
-                    .addData("touch","%d", pressed);
-
+                    .addData("g2","%d",Color.green(color2));
 
 
 

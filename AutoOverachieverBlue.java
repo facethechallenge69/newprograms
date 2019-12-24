@@ -15,8 +15,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueBlocksWall", group = "Tutorials")
-public class BlueBlocksWall extends LinearOpMode
+@Autonomous(name = "BoverachieverlueBlocks.", group = "Tutorials")
+public class AutoOverachieverBlue extends LinearOpMode
 {
     private DcMotor motorL_Up;
     private DcMotor motorL_Down;
@@ -31,7 +31,8 @@ public class BlueBlocksWall extends LinearOpMode
     private DcMotor ArmMotor_Right;
 
     private Servo armservo;
-private Servo shake_shack_servo;
+    private Servo shake_shack_servo;
+
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
 
@@ -64,6 +65,7 @@ private Servo shake_shack_servo;
 
         armservo = hardwareMap.servo.get("arm_servo");
         shake_shack_servo = hardwareMap.servo.get("servo_arm");
+
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
 
@@ -109,13 +111,13 @@ private Servo shake_shack_servo;
 
         waitForStart();
 
-        auto_functions.DriveForward(0.25, -1600);
+        auto_functions.DriveForward(0.5, -1600);
 
         sleep(250);
 
-        auto_functions.StrafeLeft(0.35,225);
+        auto_functions.StrafeLeft(0.5,225);
 
-        CurrentPosition = auto_functions.StrafeLeftColor(0.125, 2750);
+        CurrentPosition = auto_functions.StrafeLeftColor(0.2, 2750);
         if(CurrentPosition < 0)
             CurrentPosition = CurrentPosition * -1;
 
@@ -125,35 +127,46 @@ private Servo shake_shack_servo;
 
         sleep(100);
 
-        auto_functions.DriveForward(0.35, 200);
+        auto_functions.DriveForward(0.5, 200);
 
         sleep(100);
 
-        auto_functions.TurnLeft(0.35,1250);
+        auto_functions.TurnLeft(0.5,1250);
 
         sleep(100);
 
-        auto_functions.ArmUpDown(0.35, 200);
+        auto_functions.ArmUpDown(0.5, 369);
 
         sleep(100);
 
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
         auto_functions.DriveForward(0.5, -1500-CurrentPosition);
 
-        auto_functions.ArmUpDown(0.35, -269);
+        auto_functions.ArmUpDown(0.5, -269);
 
         auto_functions.DriveForward(0.5,-2000);
 
         sleep(100);
 
-        auto_functions.ArmUpDown(0.45, 700);
+        //Drive Forward a bit more at top
 
+        //Have a side arm or something that can turn the foundation liek so that the long side is against the wall
+
+        auto_functions.ArmUpDown(0.5, 500);
 
         auto_functions.OpenServo();
 
         auto_functions.DriveForward(0.35, 2250);
 
-        auto_functions.StrafeRight(0.35,1500);
+        //Go back to position of sensing, keeping arm up but not blocking color sensor
+
+        //Sense color from Current Position thing confusing pls stop help
+
+        //Make autofunctions that gets second cube and just brings the arm down at the spot of the black cube.
+
+        //Huff and Puff to the Placing of the second cube basically just repeats the thing above.
+
+        //Go back and park.
 
 
     }

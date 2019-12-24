@@ -32,12 +32,15 @@ public class RedFoundationParkYellow extends LinearOpMode
 
     private Servo armservo;
 
+    private Servo shake_shack_servo;
+
+
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
 
     Orientation angles;
 
-    NormalizedColorSensor colorSensor;
+    NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
 
     autofunctions auto_functions = new autofunctions();
@@ -90,8 +93,9 @@ public class RedFoundationParkYellow extends LinearOpMode
                 ArmMotor_Left,
                 ArmMotor_Right,
                 armservo,
+                shake_shack_servo,
                 imu,
-                colorSensor,
+                colorSensor1,
                 colorSensor2,
 
                 telemetry);

@@ -1,52 +1,64 @@
+//main PACKAGE.
 package org.firstinspires.ftc.teamcode.newprograms;
 
+//hardware imports
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
+//movement of the motors and servos and color sensor imports
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+//random imports
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueBlocks", group = "Tutorials")
+@Autonomous(name = "BlueBlocks.", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
+    //all the wheel motors
     private DcMotor motorL_Up;
     private DcMotor motorL_Down;
     private DcMotor motorR_Up;
     private DcMotor motorR_Down;
 
-
+    //more servos
     private Servo RedServo;
     private Servo BlackServo;
 
+    //armmotor
     private DcMotor ArmMotor_Left;
     private DcMotor ArmMotor_Right;
 
+    //servo
     private Servo armservo;
+    private Servo shake_shack_servo;
 
+    //Sleep calling
     private ElapsedTime runtime = new ElapsedTime();
+
+    //gyro
     BNO055IMU imu;
 
+    //gyro stuff
     Orientation angles;
 
+    //calling colorsensors
     NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
 
+    //calling auto_functions.
     autofunctions auto_functions = new autofunctions();
 
+    //Setting the Current Position integer to 0
     int CurrentPosition = 0;
-
-
-    //  Telemetry telemetry = new Telemetry();
-
 
     @Override
     public void runOpMode() throws InterruptedException {
@@ -56,30 +68,30 @@ public class BlueBlocks extends LinearOpMode
         motorL_Up = hardwareMap.dcMotor.get("left_motor_up");
         motorR_Up = hardwareMap.dcMotor.get("right_motor_up");
 
+        //hardware for servos
         RedServo = hardwareMap.servo.get("red_servo");
         BlackServo = hardwareMap.servo.get("black_servo");
 
+        //more motors!
         ArmMotor_Left = hardwareMap.dcMotor.get("armmotor_l");
         ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
 
+        //one more servo
         armservo = hardwareMap.servo.get("arm_servo");
+        shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
+        //colors
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
 
-
-
-
+        //potential gyro, we will just let it stay here
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json";
         imu = hardwareMap.get(BNO055IMU.class, "imu");
         imu.initialize(parameters);
 
-        int encoder_tics = 0;
-        double encoder_speed = 0;
-
-        //Setting the behavior for the motors to float.
+        //Setting the behavior for the motors to brake.
         motorR_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorL_Down.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         motorR_Down.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -88,7 +100,7 @@ public class BlueBlocks extends LinearOpMode
         ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-
+        //Initializing from autofunctions.java
         auto_functions.Initialize(motorL_Down,
                 motorR_Down,
                 motorR_Up,
@@ -98,52 +110,85 @@ public class BlueBlocks extends LinearOpMode
                 ArmMotor_Left,
                 ArmMotor_Right,
                 armservo,
+                shake_shack_servo,
                 imu,
                 colorSensor1,
                 colorSensor2,
 
                 telemetry);
 
+        //Init Position
         auto_functions.ServoUp();
 
+        //Position should be that the foundation servos are up against the wall, and the gaps between
+        //the wheel motors is centered along the line of mat.
+
+        //Waiting for Start to be pressed
         waitForStart();
 
-        auto_functions.DriveForward(0.25, -1600);
-
+        //Drives to first cube
+        auto_functions.DriveForward(0.6, -1600);
         sleep(250);
 
-        auto_functions.StrafeLeft(0.35,225);
+        //Strafes so that color sensors are centered to the first cube
+        auto_functions.StrafeLeft(0.5,225);
 
-        CurrentPosition = auto_functions.StrafeLeftColor(0.125, 2750);
+        //Sets the Current Position function to the amount of encoder ticks it took for the color sensor to find black while strafing
+        CurrentPosition = auto_functions.StrafeLeftColor(0.25, 2750);
         if(CurrentPosition < 0)
             CurrentPosition = CurrentPosition * -1;
-
         sleep(250);
 
+        //See autofunctions.java
         auto_functions.getcube();
-
         sleep(100);
 
-        auto_functions.DriveForward(0.35, 200);
-
+        //Drives Backwards so that we can Turn Left without hitting the other cubes.
+        auto_functions.DriveForward(0.6, 200);
         sleep(100);
 
-        auto_functions.TurnLeft(0.35,1250);
-
+        //Turns Left to make a straight trajectory towards the foundation
+        auto_functions.TurnLeft(0.6,1250);
         sleep(100);
 
-        auto_functions.ArmUpDown(0.35, 200);
-
+        //Lowers the arm so that it doesn't hit the top of the skybridge
+        auto_functions.ArmUpDown(0.5, 369);
         sleep(100);
 
+        //Drives Forward for -1500 - Current Position towards the foundation
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
-        auto_functions.DriveForward(0.5, -3500-CurrentPosition);
+        auto_functions.DriveForward(0.6, -1500-CurrentPosition);
 
+        //Moves the Arm Up so that it can go above the foundation
+        auto_functions.ArmUpDown(0.5, -269);
+
+        //Drives to foundation
+        auto_functions.DriveForward(0.6,-2000);
         sleep(100);
 
+        //Setting Up for Sleep
+        ArmMotor_Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ArmMotor_Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        ArmMotor_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ArmMotor_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        //Setting up the Power
+        ArmMotor_Right.setPower(-0.5);
+        ArmMotor_Right.setPower(0.5);
+
+        //Run by time for 1.5 secs
+        sleep(1500);
+
+        //Stop
+        ArmMotor_Left.setPower(0);
+        ArmMotor_Right.setPower(0);
+
+        //Opening servo to drop cube
         auto_functions.OpenServo();
 
-        auto_functions.DriveForward(0.35, 2250);
+        //Drives to park under bridge
+        auto_functions.DriveForward(0.6, 2250);
 
 
     }

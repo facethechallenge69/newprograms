@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@TeleOp(name = "auto.test", group = "Tutorials")
+@TeleOp(name = "AutoBest12/23", group = "Tutorials")
 public class autotest extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -30,13 +30,14 @@ public class autotest extends LinearOpMode
     private DcMotor ArmMotor_Right;
 
     private Servo armservo;
-
+    private Servo servoarm;
+    private Servo shake_shack_servo;
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
 
     Orientation angles;
 
-    NormalizedColorSensor colorSensor;
+    NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
 
     autofunctions auto_functions = new autofunctions();
@@ -61,7 +62,9 @@ public class autotest extends LinearOpMode
         ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
 
         armservo = hardwareMap.servo.get("arm_servo");
+        servoarm = hardwareMap.servo.get("servo_arm");
 
+        shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -73,6 +76,9 @@ public class autotest extends LinearOpMode
         double encoder_speed = 0;
         double last_encode_speed = 7;
         int last_encoder_tics = 7;
+
+        double servo_arm_position = 0;
+        double last_servo_arm_postition = 7;
 
         //Setting the behavior for the motors to float.
         motorR_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -94,12 +100,12 @@ public class autotest extends LinearOpMode
                 ArmMotor_Left,
                 ArmMotor_Right,
                 armservo,
+                shake_shack_servo,
                 imu,
-                colorSensor,
+                colorSensor1,
                 colorSensor2,
 
                 telemetry);
-
 
 
         //Waiting for the user to press start
@@ -170,13 +176,53 @@ public class autotest extends LinearOpMode
                 auto_functions.OpenServo();
             }
 
-            if((last_encoder_tics != encoder_tics) || (last_encode_speed !=  encoder_speed))
+            if (gamepad2.x)
+            {
+                servo_arm_position += 0.05;
+                sleep(100);
+            }
+
+            if(gamepad2.a)
+            {
+                servo_arm_position -= 0.01;
+                sleep(100);
+            }
+
+            if (gamepad2.right_bumper)
+            {
+                shake_shack_servo.setPosition(servo_arm_position);
+            }
+
+
+
+            if((last_encoder_tics != encoder_tics) || (last_encode_speed !=  encoder_speed) || (last_servo_arm_postition != servo_arm_position))
             {
                 last_encoder_tics = encoder_tics;
                 last_encode_speed = encoder_speed;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                last_servo_arm_postition = servo_arm_position;
                 telemetry.addData("encoder distance %d", encoder_tics);
                 telemetry.addData("encoder speed %f", encoder_speed);
-
+                telemetry.addData("servoposition %d", servo_arm_position);
+                telemetry.addData("ArmMotorRightPosition %d", ArmMotor_Right.getCurrentPosition());
 
                 telemetry.addLine("gampad1.a = + 50 encoder tics");
                 telemetry.addLine("gampad1.x = - 50 encoder tics");
@@ -194,6 +240,11 @@ public class autotest extends LinearOpMode
 
                 telemetry.addLine("gampad1.right_bumper = close servo");
                 telemetry.addLine("gampad1.left_bumper = open servo");
+
+                telemetry.addLine("gamepad2.right_bumper = shakeservo doub");
+
+                telemetry.addLine("gamepad2.x = +0.05");
+                telemetry.addLine("gamepad2.a = -0.05");
 
                 telemetry.update();
             }

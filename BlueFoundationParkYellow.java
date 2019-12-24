@@ -31,13 +31,14 @@ public class BlueFoundationParkYellow extends LinearOpMode
     private DcMotor ArmMotor_Right;
 
     private Servo armservo;
+    private Servo shake_shack_servo;
 
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
 
     Orientation angles;
 
-    NormalizedColorSensor colorSensor;
+    NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
 
     autofunctions auto_functions = new autofunctions();
@@ -61,7 +62,7 @@ public class BlueFoundationParkYellow extends LinearOpMode
         ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
 
         armservo = hardwareMap.servo.get("arm_servo");
-
+        shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -90,8 +91,9 @@ public class BlueFoundationParkYellow extends LinearOpMode
                 ArmMotor_Left,
                 ArmMotor_Right,
                 armservo,
+                shake_shack_servo,
                 imu,
-                colorSensor,
+                colorSensor1,
                 colorSensor2,
 
                 telemetry);

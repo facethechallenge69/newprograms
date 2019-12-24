@@ -23,6 +23,7 @@ telefor2 extends LinearOpMode {
     private DcMotor ArmMotor_Right;
 
     private Servo armservo;
+    private Servo shake_shack_servo;
 
 
     int MOV_LEFT_RIGHT = 1;
@@ -50,6 +51,7 @@ telefor2 extends LinearOpMode {
         ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
 
         armservo = hardwareMap.servo.get("arm_servo");
+        shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
 
         double motorSpeed = 1;
@@ -64,6 +66,10 @@ telefor2 extends LinearOpMode {
         double arm_servo = 0.5;
 
         double armPower = 0.1769;
+
+        int ArmPosition = 0;
+
+        double ShakeServo = 0;
 
 
 
@@ -100,6 +106,12 @@ telefor2 extends LinearOpMode {
                 motorSpeed = 0.269;
             }
 
+            if (gamepad1.y) {
+                motorSpeed = 0.169;
+            }
+
+
+
 
 
             //incremental movement for RedServo
@@ -133,7 +145,7 @@ telefor2 extends LinearOpMode {
 
             //turns mecanum wheels left and right
 
-            if(moving == 0 && gamepad1.left_stick_x < 0 ) {
+            if(moving == 0 && gamepad1.left_stick_x > 0 ) {
 // should be right
                 moving = MOV_LEFT_RIGHT;
                 motorL_Down.setPower(motorSpeed * -1);
@@ -142,7 +154,7 @@ telefor2 extends LinearOpMode {
                 motorR_Up.setPower(motorSpeed * -1);
             }
 
-            if(moving == 0 && gamepad1.left_stick_x > 0 ) {
+            if(moving == 0 && gamepad1.left_stick_x < 0 ) {
 // should be left
                 moving = MOV_LEFT_RIGHT;
                 motorL_Down.setPower(motorSpeed * 1);
@@ -163,10 +175,10 @@ telefor2 extends LinearOpMode {
 
             if (moving == 0 && gamepad1.dpad_right) {
                 moving = STAF_RIGHT;
-                motorL_Down.setPower(motorSpeed * -1);
-                motorR_Down.setPower(motorSpeed * -1);
-                motorL_Up.setPower(motorSpeed * 1);
-                motorR_Up.setPower(motorSpeed * 1);
+                motorL_Down.setPower(0.4 * -1);
+                motorR_Down.setPower(0.4 * -1);
+                motorL_Up.setPower(0.4 * 1);
+                motorR_Up.setPower(0.4 * 1);
             }
             else if(!gamepad1.dpad_right && moving == STAF_RIGHT)
             {
@@ -177,10 +189,10 @@ telefor2 extends LinearOpMode {
 
             if (moving == 0 && gamepad1.dpad_left) {
                 moving = STRAF_LEFT;
-                motorL_Down.setPower(motorSpeed * 1);
-                motorR_Down.setPower(motorSpeed * 1);
-                motorL_Up.setPower(motorSpeed * -1);
-                motorR_Up.setPower(motorSpeed * -1);
+                motorL_Down.setPower(0.4 * 1);
+                motorR_Down.setPower(0.4 * 1);
+                motorL_Up.setPower(0.4 * -1);
+                motorR_Up.setPower(0.4 * -1);
             }
 
             else if(!gamepad1.dpad_left && moving == STRAF_LEFT)
@@ -246,10 +258,26 @@ telefor2 extends LinearOpMode {
                 }
 
 
+                ArmMotor_Right.getCurrentPosition();
+                ArmPosition = ArmMotor_Right.getCurrentPosition();
 
-           
+                ShakeServo = shake_shack_servo.getPosition();
 
-           
+                shake_shack_servo.setPosition( (0.000541157*ArmPosition) -0.0744462 );
+
+
+
+
+                telemetry.addData("ArmCurrentPosition = %d", ArmPosition);
+                telemetry.addData("ServoCurrentPosition = %d", ShakeServo);
+
+
+
+
+
+
+
+
             telemetry.update();
             idle();
 

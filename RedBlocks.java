@@ -30,6 +30,8 @@ public class RedBlocks extends LinearOpMode
     private DcMotor ArmMotor_Left;
     private DcMotor ArmMotor_Right;
 
+    private Servo shake_shack_servo;
+
     private Servo armservo;
 
     private ElapsedTime runtime = new ElapsedTime();
@@ -58,6 +60,7 @@ public class RedBlocks extends LinearOpMode
 
         RedServo = hardwareMap.servo.get("red_servo");
         BlackServo = hardwareMap.servo.get("black_servo");
+        shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
         ArmMotor_Left = hardwareMap.dcMotor.get("armmotor_l");
         ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
@@ -98,10 +101,10 @@ public class RedBlocks extends LinearOpMode
                 ArmMotor_Left,
                 ArmMotor_Right,
                 armservo,
+                shake_shack_servo,
                 imu,
                 colorSensor1,
                 colorSensor2,
-
                 telemetry);
 
         auto_functions.ServoUp();
@@ -137,9 +140,15 @@ public class RedBlocks extends LinearOpMode
         sleep(100);
 
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
-        auto_functions.DriveForward(0.5, -3500-CurrentPosition);
+        auto_functions.DriveForward(0.5, -1500-CurrentPosition);
+
+        auto_functions.ArmUpDown(0.35, -269);
+
+        auto_functions.DriveForward(0.5,-2000);
 
         sleep(100);
+
+        auto_functions.ArmUpDown(0.45, 700);
 
         auto_functions.OpenServo();
 

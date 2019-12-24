@@ -41,11 +41,15 @@ public class autofunctions
 
     private Servo armservo;
 
+    private Servo shake_shack_servo;
+
 
     private ElapsedTime runtime = new ElapsedTime();
 
     Orientation             lastAngles = new Orientation();
     double                  globalAngle, power = .169, correction;
+    double     FORWARD_SPEED = 0.6;
+    double     TURN_SPEED    = 0.5;
 
     BNO055IMU imu;
 
@@ -65,6 +69,7 @@ public class autofunctions
                            DcMotor ArmMotor_LeftIn,
                            DcMotor ArmMotor_RightIn,
                            Servo ArmServoIn,
+                           Servo shake_shack_servoIn,
                            BNO055IMU imuIn,
                            NormalizedColorSensor colorSensor1In,
                            NormalizedColorSensor colorSensor2In,
@@ -81,6 +86,7 @@ public class autofunctions
         ArmMotor_Left = ArmMotor_LeftIn;
         ArmMotor_Right = ArmMotor_RightIn;
         armservo = ArmServoIn;
+        shake_shack_servo = shake_shack_servoIn;
         imu = imuIn;
         colorSensor1 = colorSensor1In;
         colorSensor2 = colorSensor2In;
@@ -90,10 +96,7 @@ public class autofunctions
 
     }
 
-    public void SetMode()
-    {
 
-    }
 
     public void DriveForward(double Power, int Distance)
     {
@@ -301,6 +304,8 @@ public class autofunctions
 
         StopDriving();
 
+
+
     }
 
 
@@ -456,19 +461,32 @@ public class autofunctions
     public void getcube()
     {
 
-        DriveForward(0.15, 650);
+        //Drive Backward To move arm up
+        DriveForward(0.5, 650);
         sleep(250);
-        ArmUpDown(0.35, 1800);
+
+        //Bring Arm Up
+        ArmUpDown(0.5, 1800);
         sleep(250);
+
+        //Open Servo to grasp
         OpenServo();
+        sleep(469);
+
+        //Bring arm lower
+        ArmUpDown(0.5, 200);
+        sleep(969);
+
+        //Drive Forward
+        DriveForward(0.6,-600);
         sleep(569);
-        ArmUpDown(0.35, 200);
-        sleep(569);
-        DriveForward(0.15,-600);
-        sleep(569);
+
+        //Close the Servo
         CloseServo();
         sleep(569);
-        ArmUpDown(0.35, -500);
+
+        //Bring Arm Back Up
+        ArmUpDown(0.5, -500);
         sleep(569);
     }
 

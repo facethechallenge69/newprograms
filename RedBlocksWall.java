@@ -32,6 +32,8 @@ public class RedBlocksWall extends LinearOpMode
 
     private Servo armservo;
 
+    private Servo shake_shack_servo;
+
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
 
@@ -63,6 +65,7 @@ public class RedBlocksWall extends LinearOpMode
         ArmMotor_Right = hardwareMap.dcMotor.get("armmotor_r");
 
         armservo = hardwareMap.servo.get("arm_servo");
+        shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
@@ -98,6 +101,7 @@ public class RedBlocksWall extends LinearOpMode
                 ArmMotor_Left,
                 ArmMotor_Right,
                 armservo,
+                shake_shack_servo,
                 imu,
                 colorSensor1,
                 colorSensor2,
@@ -137,9 +141,16 @@ public class RedBlocksWall extends LinearOpMode
         sleep(100);
 
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
-        auto_functions.DriveForward(0.5, -3500-CurrentPosition);
+        auto_functions.DriveForward(0.5, -1500-CurrentPosition);
+
+        auto_functions.ArmUpDown(0.35, -269);
+
+        auto_functions.DriveForward(0.5,-2000);
 
         sleep(100);
+
+        auto_functions.ArmUpDown(0.45, 700);
+
 
         auto_functions.OpenServo();
 
