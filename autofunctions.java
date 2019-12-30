@@ -285,6 +285,8 @@ public class autofunctions
 
     public void ArmUpDown    (double Power, int Distance)
     {
+
+
         ArmMotor_Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         ArmMotor_Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
@@ -303,9 +305,25 @@ public class autofunctions
         }
 
         StopDriving();
+    }
 
+    public void ArmUpDownTime    (double Power, int Distance, int Time)
+    {
+        ArmMotor_Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        ArmMotor_Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
+        ArmMotor_Left.setTargetPosition(-Distance);
+        ArmMotor_Right.setTargetPosition(Distance);
 
+        ArmMotor_Left.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        ArmMotor_Right.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        ArmMotor_Left.setPower(-Power);
+        ArmMotor_Right.setPower(Power);
+
+        sleep(Time);
+
+        StopDriving();
     }
 
 
@@ -462,20 +480,12 @@ public class autofunctions
     {
 
         //Drive Backward To move arm up
-        DriveForward(0.5, 650);
+        DriveForward(0.6, 650);
         sleep(250);
 
         //Bring Arm Up
-        ArmUpDown(0.5, 1800);
+        ArmUpDown(0.7, 2000);
         sleep(250);
-
-        //Open Servo to grasp
-        OpenServo();
-        sleep(469);
-
-        //Bring arm lower
-        ArmUpDown(0.5, 200);
-        sleep(969);
 
         //Drive Forward
         DriveForward(0.6,-600);
@@ -486,7 +496,7 @@ public class autofunctions
         sleep(569);
 
         //Bring Arm Back Up
-        ArmUpDown(0.5, -500);
+        ArmUpDown(0.7, -500);
         sleep(569);
     }
 

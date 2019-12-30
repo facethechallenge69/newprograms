@@ -107,7 +107,11 @@ private Servo shake_shack_servo;
 
         auto_functions.ServoUp();
 
+        ArmMotor_Right.getCurrentPosition();
+
         waitForStart();
+
+        ArmMotor_Right.getCurrentPosition();
 
         auto_functions.DriveForward(0.25, -1600);
 

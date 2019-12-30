@@ -60,6 +60,8 @@ public class BlueBlocks extends LinearOpMode
     //Setting the Current Position integer to 0
     int CurrentPosition = 0;
 
+    int ArmPosition = 0;
+
     @Override
     public void runOpMode() throws InterruptedException {
         //Receiving the necessary hardware for the motors
@@ -124,7 +126,18 @@ public class BlueBlocks extends LinearOpMode
         //the wheel motors is centered along the line of mat.
 
         //Waiting for Start to be pressed
+
+        ArmMotor_Right.getCurrentPosition();
+
+        shake_shack_servo.setPosition(1);
+
         waitForStart();
+
+        //Current Position of ArmMotor Right
+        ArmMotor_Right.getCurrentPosition();
+
+        //Setting Arm Position to the Current Position
+        ArmPosition = ArmMotor_Left.getCurrentPosition();
 
         //Drives to first cube
         auto_functions.DriveForward(0.6, -1600);
@@ -143,46 +156,21 @@ public class BlueBlocks extends LinearOpMode
         auto_functions.getcube();
         sleep(100);
 
-        //Drives Backwards so that we can Turn Left without hitting the other cubes.
-        auto_functions.DriveForward(0.6, 200);
-        sleep(100);
-
         //Turns Left to make a straight trajectory towards the foundation
         auto_functions.TurnLeft(0.6,1250);
         sleep(100);
 
-        //Lowers the arm so that it doesn't hit the top of the skybridge
-        auto_functions.ArmUpDown(0.5, 369);
-        sleep(100);
 
         //Drives Forward for -1500 - Current Position towards the foundation
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
         auto_functions.DriveForward(0.6, -1500-CurrentPosition);
-
-        //Moves the Arm Up so that it can go above the foundation
-        auto_functions.ArmUpDown(0.5, -269);
 
         //Drives to foundation
         auto_functions.DriveForward(0.6,-2000);
         sleep(100);
 
         //Setting Up for Sleep
-        ArmMotor_Left.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        ArmMotor_Right.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-        ArmMotor_Left.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        ArmMotor_Right.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        //Setting up the Power
-        ArmMotor_Right.setPower(-0.5);
-        ArmMotor_Right.setPower(0.5);
-
-        //Run by time for 1.5 secs
-        sleep(1500);
-
-        //Stop
-        ArmMotor_Left.setPower(0);
-        ArmMotor_Right.setPower(0);
+        auto_functions.ArmUpDownTime(0.7, 400, 500);
 
         //Opening servo to drop cube
         auto_functions.OpenServo();

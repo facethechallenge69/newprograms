@@ -102,7 +102,11 @@ public class BlueFoundationParkWall extends LinearOpMode
 
         auto_functions.ServoUp();
 
+        ArmMotor_Right.getCurrentPosition();
+
         waitForStart();
+
+        ArmMotor_Right.getCurrentPosition();
 
         auto_functions.DriveForward(0.45, 1000);
         sleep(100);

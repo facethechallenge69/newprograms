@@ -109,7 +109,11 @@ public class AutoOverachieverBlue extends LinearOpMode
 
         auto_functions.ServoUp();
 
+        ArmMotor_Right.getCurrentPosition();
+
         waitForStart();
+
+        ArmMotor_Right.getCurrentPosition();
 
         auto_functions.DriveForward(0.5, -1600);
 

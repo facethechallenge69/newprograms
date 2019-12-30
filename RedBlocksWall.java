@@ -110,7 +110,11 @@ public class RedBlocksWall extends LinearOpMode
 
         auto_functions.ServoUp();
 
+        ArmMotor_Right.getCurrentPosition();
+
         waitForStart();
+
+        ArmMotor_Right.getCurrentPosition();
 
         auto_functions.DriveForward(0.25, -1600);
 
