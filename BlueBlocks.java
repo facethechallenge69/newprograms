@@ -200,7 +200,7 @@ public class BlueBlocks extends LinearOpMode
 
         auto_functions.TurnLeft(0.8,1150);
 
-        auto_functions.DriveForward(0.8,CurrentPosition+4819);
+        auto_functions.DriveForward(0.8,CurrentPosition+-4819);
 
 
 
