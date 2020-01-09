@@ -20,7 +20,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueBlocks.", group = "Tutorials")
+@Autonomous(name = "BlueBlox", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
     //all the wheel motors
@@ -122,6 +122,7 @@ public class BlueBlocks extends LinearOpMode
         //Init Position
         auto_functions.ServoUp();
 
+        auto_functions.OpenServo();
         //Position should be that the foundation servos are up against the wall, and the gaps between
         //the wheel motors is centered along the line of mat.
 
@@ -137,17 +138,17 @@ public class BlueBlocks extends LinearOpMode
         ArmMotor_Right.getCurrentPosition();
 
         //Setting Arm Position to the Current Position
-        ArmPosition = ArmMotor_Left.getCurrentPosition();
+        ArmPosition = ArmMotor_Right.getCurrentPosition();
 
         //Drives to first cube
-        auto_functions.DriveForward(0.6, -1600);
+        auto_functions.DriveForward(0.5, -1600);
         sleep(250);
 
         //Strafes so that color sensors are centered to the first cube
-        auto_functions.StrafeLeft(0.5,225);
+        auto_functions.StrafeLeft(0.4,225);
 
         //Sets the Current Position function to the amount of encoder ticks it took for the color sensor to find black while strafing
-        CurrentPosition = auto_functions.StrafeLeftColor(0.25, 2750);
+        CurrentPosition = auto_functions.StrafeLeftColor(0.2, 2750);
         if(CurrentPosition < 0)
             CurrentPosition = CurrentPosition * -1;
         sleep(250);
@@ -157,16 +158,17 @@ public class BlueBlocks extends LinearOpMode
         sleep(100);
 
         //Turns Left to make a straight trajectory towards the foundation
-        auto_functions.TurnLeft(0.6,1250);
+        auto_functions.TurnLeft(0.5,1200);
         sleep(100);
 
 
         //Drives Forward for -1500 - Current Position towards the foundation
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
-        auto_functions.DriveForward(0.6, -1500-CurrentPosition);
+        auto_functions.DriveForward(0.5, -1500-CurrentPosition);
+
 
         //Drives to foundation
-        auto_functions.DriveForward(0.6,-2000);
+        auto_functions.DriveForward(0.5,-2000);
         sleep(100);
 
         //Setting Up for Sleep
@@ -175,8 +177,31 @@ public class BlueBlocks extends LinearOpMode
         //Opening servo to drop cube
         auto_functions.OpenServo();
 
-        //Drives to park under bridge
-        auto_functions.DriveForward(0.6, 2250);
+        auto_functions.ArmUpDown(0.8,-75);
+
+        //Drives to 1st cube
+        auto_functions.DriveForward(0.7, 3269);
+
+        auto_functions.DriveForward(0.7, CurrentPosition);
+
+        auto_functions.DriveForward(0.7,950);
+
+        auto_functions.TurnRight(0.7,1150);
+
+        auto_functions.StrafeLeft(0.6,600);
+
+        auto_functions.DriveForward(0.7, -750);
+
+        auto_functions.CloseServo();
+
+        auto_functions.ArmUpDown(0.7,-150);
+
+        auto_functions.DriveForward(0.8,750);
+
+        auto_functions.TurnLeft(0.8,1150);
+
+        auto_functions.DriveForward(0.8,CurrentPosition+4819);
+
 
 
     }

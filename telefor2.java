@@ -106,9 +106,7 @@ telefor2 extends LinearOpMode {
                 motorSpeed = 0.269;
             }
 
-            if (gamepad1.y) {
-                motorSpeed = 0.169;
-            }
+
 
 
 

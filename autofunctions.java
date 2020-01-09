@@ -480,24 +480,26 @@ public class autofunctions
     {
 
         //Drive Backward To move arm up
-        DriveForward(0.6, 650);
+        DriveForward(0.7, 650);
         sleep(250);
 
         //Bring Arm Up
-        ArmUpDown(0.7, 2000);
+        ArmUpDown(0.7, 2200);
         sleep(250);
 
         //Drive Forward
-        DriveForward(0.6,-600);
+        DriveForward(0.7,-600);
         sleep(569);
 
         //Close the Servo
         CloseServo();
         sleep(569);
 
-        //Bring Arm Back Up
-        ArmUpDown(0.7, -500);
-        sleep(569);
+        //Drive Backward
+        DriveForward(0.7,600);
+
+        ArmUpDown(1,-400);
+
     }
 
     public int getcubecolor() {
