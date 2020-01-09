@@ -213,9 +213,7 @@ public class BlueBlocks extends LinearOpMode
 
         auto_functions.DriveForward(0.9, 2269);
 
-
-
-
+        
 
 
 
