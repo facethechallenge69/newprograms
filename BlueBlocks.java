@@ -20,7 +20,9 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@Autonomous(name = "BlueBlox", group = "Tutorials")
+import static android.os.SystemClock.sleep;
+
+@Autonomous(name = "BlueBlox gang bangin", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
     //all the wheel motors
@@ -164,11 +166,10 @@ public class BlueBlocks extends LinearOpMode
 
         //Drives Forward for -1500 - Current Position towards the foundation
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
-        auto_functions.DriveForward(0.5, -1500-CurrentPosition);
+        auto_functions.DriveForward(0.9, -3000-CurrentPosition);
 
 
-        //Drives to foundation
-        auto_functions.DriveForward(0.5,-2000);
+
         sleep(100);
 
         //Setting Up for Sleep
@@ -179,28 +180,42 @@ public class BlueBlocks extends LinearOpMode
 
         auto_functions.ArmUpDown(0.8,-75);
 
-        //Drives to 1st cube
-        auto_functions.DriveForward(0.7, 3269);
+        //Drives to next cube
 
-        auto_functions.DriveForward(0.7, CurrentPosition);
 
-        auto_functions.DriveForward(0.7,950);
+        auto_functions.DriveForward(0.769, CurrentPosition+3769);
 
-        auto_functions.TurnRight(0.7,1150);
 
-        auto_functions.StrafeLeft(0.6,600);
+        auto_functions.TurnRight(0.8,1100);
 
-        auto_functions.DriveForward(0.7, -750);
+
+
+        auto_functions.StrafeLeft(0.7,469);
+
+        auto_functions.DriveForward(0.8, -769);
 
         auto_functions.CloseServo();
+        sleep(369);
 
-        auto_functions.ArmUpDown(0.7,-150);
+        auto_functions.ArmUpDown(0.7,-400);
 
-        auto_functions.DriveForward(0.8,750);
+        auto_functions.DriveForward(0.8,769);
 
-        auto_functions.TurnLeft(0.8,1150);
+        auto_functions.TurnLeft(0.8,1169);
 
-        auto_functions.DriveForward(0.8,CurrentPosition+4819);
+        auto_functions.DriveForward(0.8,-CurrentPosition-4819);
+
+        auto_functions.ArmUpDownTime(0.7, 400, 369);
+
+        auto_functions.OpenServo();
+
+        auto_functions.ArmUpDown(0.7, -369);
+
+        auto_functions.DriveForward(0.9, 2269);
+
+
+
+
 
 
 
