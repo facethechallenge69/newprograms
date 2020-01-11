@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "BlueBlox gang bangin", group = "Tutorials")
+@Autonomous(name = "BlueBlox gg", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
     //all the wheel motors
@@ -155,6 +155,8 @@ public class BlueBlocks extends LinearOpMode
             CurrentPosition = CurrentPosition * -1;
         sleep(250);
 
+        ArmMotor_Right.getCurrentPosition();
+
         //See autofunctions.java
         auto_functions.getcube();
         sleep(100);
@@ -178,7 +180,11 @@ public class BlueBlocks extends LinearOpMode
         //Opening servo to drop cube
         auto_functions.OpenServo();
 
-        auto_functions.ArmUpDown(0.8,-75);
+        sleep(100);
+
+        ArmMotor_Right.getCurrentPosition();
+
+        auto_functions.ArmUpDown(0.8,-116);
 
         //Drives to next cube
 
@@ -190,20 +196,22 @@ public class BlueBlocks extends LinearOpMode
 
 
 
-        auto_functions.StrafeLeft(0.7,469);
+        auto_functions.StrafeLeft(0.7,769);
 
         auto_functions.DriveForward(0.8, -769);
 
         auto_functions.CloseServo();
-        sleep(369);
+        sleep(569);
 
         auto_functions.ArmUpDown(0.7,-400);
 
-        auto_functions.DriveForward(0.8,769);
+        auto_functions.DriveForward(0.7,769);
 
-        auto_functions.TurnLeft(0.8,1169);
+        auto_functions.TurnLeft(0.8,1269);
 
-        auto_functions.DriveForward(0.8,-CurrentPosition-4819);
+        ArmMotor_Right.getCurrentPosition();
+
+        auto_functions.DriveForward(0.8,-CurrentPosition-4219);
 
         auto_functions.ArmUpDownTime(0.7, 400, 369);
 
@@ -211,7 +219,9 @@ public class BlueBlocks extends LinearOpMode
 
         auto_functions.ArmUpDown(0.7, -369);
 
-        auto_functions.DriveForward(0.9, 2269);
+        auto_functions.DriveForward(0.9, 2069);
+
+        ArmMotor_Right.getCurrentPosition();
 
         
 

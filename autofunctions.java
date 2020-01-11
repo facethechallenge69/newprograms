@@ -498,7 +498,7 @@ public class autofunctions
         //Drive Backward
         DriveForward(0.7,600);
 
-        ArmUpDown(1,-400);
+        ArmUpDown(1,-469);
 
     }
 

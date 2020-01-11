@@ -89,7 +89,14 @@ telefor2 extends LinearOpMode {
 
         BlackServo.setPosition(1);
         RedServo.setPosition(1);
+
+        ArmMotor_Right.getCurrentPosition();
+
+
+
         waitForStart();
+
+
 
         while (opModeIsActive()) {
             //moves wheels forward and backward
@@ -261,7 +268,11 @@ telefor2 extends LinearOpMode {
 
                 ShakeServo = shake_shack_servo.getPosition();
 
-                shake_shack_servo.setPosition( (0.000541157*ArmPosition) -0.0744462 );
+
+
+                shake_shack_servo.setPosition( (0.000553016*ArmPosition) +0.955998 );
+
+
 
 
 
