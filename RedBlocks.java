@@ -100,6 +100,7 @@ public class RedBlocks extends LinearOpMode
                 motorR_Up,
                 motorL_Up,
                 RedServo,
+
                 BlackServo,
                 ArmMotor_Left,
                 ArmMotor_Right,
@@ -132,7 +133,7 @@ public class RedBlocks extends LinearOpMode
         ArmPosition = ArmMotor_Right.getCurrentPosition();
 
         //Drives to first cube
-        auto_functions.DriveForward(0.5, -1600);
+        auto_functions.DriveForward(0.5, -1675);
         sleep(250);
 
         //Strafes so that color sensors are centered to the first cube
@@ -172,32 +173,34 @@ public class RedBlocks extends LinearOpMode
 
         sleep(100);
 
-        auto_functions.ArmUpDown(0.8,-116);
+        auto_functions.ArmUpDown(0.8,-169);
 
         //Drives to next cube
 
 
         auto_functions.DriveForward(0.769, CurrentPosition+3769);
 
-
+auto_functions.ArmUpDown(0.8,53);
         auto_functions.TurnLeft(0.8,1100);
 
         ArmMotor_Right.getCurrentPosition();
 
-        auto_functions.StrafeRight(0.7,769);
+        auto_functions.StrafeRight(0.7,719);
 
         auto_functions.DriveForward(0.8, -769);
 
         auto_functions.CloseServo();
         sleep(569);
 
-        auto_functions.ArmUpDown(0.7,-400);
+
 
         auto_functions.DriveForward(0.7,769);
 
+        auto_functions.ArmUpDown(0.7,-369);
+
         auto_functions.TurnRight(0.8,1269);
 
-        auto_functions.DriveForward(0.8,-CurrentPosition-4269);
+        auto_functions.DriveForward(0.8,-CurrentPosition-4219);
 
         auto_functions.ArmUpDownTime(0.7, 400, 369);
 

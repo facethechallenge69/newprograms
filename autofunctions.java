@@ -496,7 +496,7 @@ public class autofunctions
         sleep(569);
 
         //Drive Backward
-        DriveForward(0.7,600);
+        DriveForward(0.7,475);
 
         ArmUpDown(1,-469);
 
@@ -528,7 +528,7 @@ public class autofunctions
                 .addData("g", "%d", Color.green(color))
                 .addData("b", "%d", Color.blue(color));
 
-        if (Color.red(color) < 85 && Color.red(color) > 0 && Color.red(color2) < 85 && Color.red(color2) > 0) {
+        if (Color.red(color) < 100 && Color.red(color) > 0 && Color.red(color2) < 100 && Color.red(color2) > 0) {
             telemetry.addLine("Got black");
             telemetry.update();
             return 1; // 1 = true

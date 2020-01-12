@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "BlueBlox gg", group = "Tutorials")
+@Autonomous(name = "BlueBloxx gg", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
     //all the wheel motors
@@ -143,7 +143,7 @@ public class BlueBlocks extends LinearOpMode
         ArmPosition = ArmMotor_Right.getCurrentPosition();
 
         //Drives to first cube
-        auto_functions.DriveForward(0.5, -1600);
+        auto_functions.DriveForward(0.5, -1675);
         sleep(250);
 
         //Strafes so that color sensors are centered to the first cube
@@ -184,28 +184,31 @@ public class BlueBlocks extends LinearOpMode
 
         ArmMotor_Right.getCurrentPosition();
 
-        auto_functions.ArmUpDown(0.8,-116);
+        auto_functions.ArmUpDown(0.8,-169);
 
         //Drives to next cube
 
 
         auto_functions.DriveForward(0.769, CurrentPosition+3769);
 
+        auto_functions.ArmUpDown(0.8, 53);
+
 
         auto_functions.TurnRight(0.8,1100);
 
 
 
-        auto_functions.StrafeLeft(0.7,769);
+        auto_functions.StrafeLeft(0.7,719);
 
         auto_functions.DriveForward(0.8, -769);
 
         auto_functions.CloseServo();
         sleep(569);
 
-        auto_functions.ArmUpDown(0.7,-400);
-
         auto_functions.DriveForward(0.7,769);
+
+        auto_functions.ArmUpDown(0.7,-369);
+
 
         auto_functions.TurnLeft(0.8,1269);
 
