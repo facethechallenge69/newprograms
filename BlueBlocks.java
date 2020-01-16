@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "BlueBloxx gg", group = "Tutorials")
+@Autonomous(name = "TrashBlocks", group = "Tutorials")
 public class BlueBlocks extends LinearOpMode
 {
     //all the wheel motors
