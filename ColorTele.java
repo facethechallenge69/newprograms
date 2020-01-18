@@ -11,7 +11,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.NormalizedRGBA;
 import com.qualcomm.robotcore.hardware.TouchSensor;
 
-@TeleOp(name = "colote", group = "Tutorials")
+@TeleOp(name = "colortele", group = "Tutorials")
 public class ColorTele extends LinearOpMode {
     NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;

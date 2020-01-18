@@ -2,7 +2,6 @@ package org.firstinspires.ftc.teamcode.newprograms;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
@@ -102,26 +101,18 @@ public class autofunctions
     public void DriveForward(double Power, int Distance)
     {
 
+
         motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        motorL_Down.setDirection(DcMotorSimple.Direction.FORWARD);
-        motorR_Down.setDirection(DcMotorSimple.Direction.FORWARD);
-        motorL_Up.setDirection(DcMotorSimple.Direction.FORWARD);
-        motorR_Up.setDirection(DcMotorSimple.Direction.FORWARD);
-
+        AllBRAKE();
 
         motorL_Down.setTargetPosition(-Distance);
         motorL_Up.setTargetPosition(-Distance);
         motorR_Up.setTargetPosition(Distance);
         motorR_Down.setTargetPosition(Distance);
-
-        motorL_Down.setPower(-Power);
-        motorL_Up.setPower(-Power);
-        motorR_Up.setPower(Power);
-        motorR_Down.setPower(Power);
 
         motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -129,24 +120,22 @@ public class autofunctions
         motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
 
+        motorL_Down.setPower(-Power);
+        motorL_Up.setPower(-Power);
+        motorR_Up.setPower(Power);
+        motorR_Down.setPower(Power);
 
-      // ||
 
-        //motorL_Up.isBusy()|| motorL_Down.isBusy())
-
-       while ( motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
         {
             //Wait until the task is done
         }
+        StopDriving();
 
-       StopDriving();
-
-        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorL_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorR_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-
+        motorL_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
     }
 
     public void TurnLeft(double Power, int Distance)
@@ -237,7 +226,6 @@ public class autofunctions
         motorR_Down.setTargetPosition(Distance);
         motorL_Up.setTargetPosition(-Distance);
         motorL_Down.setTargetPosition(Distance);
-
 
         motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -543,7 +531,7 @@ public class autofunctions
         if (Color.red(color) < 100 && Color.red(color) > 0 && Color.red(color2) < 100 && Color.red(color2) > 0) {
             telemetry.addLine("Got black");
             telemetry.update();
-            return 1; // 1 =
+            return 1; // 1 = true
         }
 
         telemetry.addLine("nope");

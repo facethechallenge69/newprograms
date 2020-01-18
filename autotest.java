@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@TeleOp(name = "autotest ideas beginning of the last hope", group = "Tutorials")
+@TeleOp(name = "AutoBest12/23", group = "Tutorials")
 public class autotest extends LinearOpMode
 {
     private DcMotor motorL_Up;
