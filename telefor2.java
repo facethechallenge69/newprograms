@@ -270,7 +270,7 @@ telefor2 extends LinearOpMode {
 
 
 
-                shake_shack_servo.setPosition( (0.000553016*ArmPosition) +0.955998 );
+                shake_shack_servo.setPosition( (0.000553016*ArmMotor_Right.getCurrentPosition()) +0.955998 );
 
 
 

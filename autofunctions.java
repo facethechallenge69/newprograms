@@ -495,10 +495,9 @@ public class autofunctions
         CloseServo();
         sleep(569);
 
-        //Drive Backward
-        DriveForward(0.7,475);
+        ArmUpDown(1,-700);
 
-        ArmUpDown(1,-469);
+        DriveForward(0.7, 300);
 
     }
 
