@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "BlueBlox gang.1", group = "Tutorials")
+@Autonomous(name = "FastBluBloxOnes", group = "Tutorials")
 public class blue_blox_alliancepark extends LinearOpMode
 {
     //all the wheel motors
@@ -136,56 +136,22 @@ public class blue_blox_alliancepark extends LinearOpMode
 
         waitForStart();
 
-        //Current Position of ArmMotor Right
-        ArmMotor_Right.getCurrentPosition();
 
-        //Setting Arm Position to the Current Position
-        ArmPosition = ArmMotor_Right.getCurrentPosition();
-
-        //Drives to first cube
-        auto_functions.DriveForward(0.5, -1675);
-        sleep(250);
-
-        //Strafes so that color sensors are centered to the first cube
-        auto_functions.StrafeLeft(0.4,225);
-
-        //Sets the Current Position function to the amount of encoder ticks it took for the color sensor to find black while strafing
-        CurrentPosition = auto_functions.StrafeLeftColor(0.2, 2750);
-        if(CurrentPosition < 0)
-            CurrentPosition = CurrentPosition * -1;
-        sleep(250);
-
-        ArmMotor_Right.getCurrentPosition();
-
-        //See autofunctions.java
-        auto_functions.getcube();
-        sleep(100);
-
-        //Turns Left to make a straight trajectory towards the foundation
-        auto_functions.TurnLeft(0.5,1150);
-        sleep(100);
-
-        auto_functions.ArmUpDown(0.7,150);
-
-
-        //Drives Forward for -1500 - Current Position towards the foundation
-        telemetry.addData("CurrentPosition", "%d", CurrentPosition);
-        telemetry.update();
-        auto_functions.DriveForward(0.9, -2800-CurrentPosition-250);
+        auto_functions.bluud_3_comp(-250);
 
         auto_functions.TurnRight(0.569, 800);
 
-        auto_functions.DriveForward(0.669, -250);
+       // auto_functions.DriveForward(0.669, -250);
 
         auto_functions.OpenServo();
 
-        auto_functions.DriveForward(0.669, 250);
+        //auto_functions.DriveForward(0.669, 250);
 
         auto_functions.TurnLeft(0.569, 800);
 
+        auto_functions.CloseServo();
+
         auto_functions.DriveForward(0.9, 2800+CurrentPosition+250);
-
-
 
 
     }

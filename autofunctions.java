@@ -43,6 +43,10 @@ public class autofunctions
 
     private Servo shake_shack_servo;
 
+    int CurrentPosition = 0;
+
+    int ArmPosition = 0;
+
 
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -479,6 +483,7 @@ public class autofunctions
     public void getcube()
     {
 
+        int Distance = 200;
         //Drive Backward To move arm up
         DriveForward(0.7, 650);
         sleep(250);
@@ -497,7 +502,21 @@ public class autofunctions
 
         ArmUpDown(1,-700);
 
-        DriveForward(0.7, 300);
+        int got_turn = getTurn();
+        if (got_turn == 1)
+        {
+            Distance += 0;
+        }
+        if (got_turn == 2)
+        {
+            Distance -= 50;
+        }
+        if (got_turn == 3)
+        {
+            Distance -= 150;
+        }
+
+        DriveForward(0.7, Distance);
 
     }
 
@@ -538,6 +557,148 @@ public class autofunctions
         return 0;  // 0 = false
     }
 
+    public int getTurn()
+    {
+        if (CurrentPosition < 250 )
+        {
+            return 1;
+        }
+        if (CurrentPosition > 650)
+        {
+            return 3;
+        }
+
+            return 2;
+    }
+
+    public void TurnLeftCompensation (double Power, int Distance)
+    {
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        AllBRAKE();
+
+        int got_turn = getTurn();
+        if (got_turn == 1)
+        {
+            Distance  += 7;
+        }
+        if (got_turn == 2)
+        {
+            Distance += 25;
+        }
+        if (got_turn == 3)
+        {
+            Distance += 65;
+        }
+
+        telemetry.addData("turndistance %d", Distance);
+        telemetry.update();
+
+        motorR_Up.setTargetPosition(Distance);
+        motorR_Down.setTargetPosition(Distance);
+        motorL_Up.setTargetPosition(Distance);
+        motorL_Down.setTargetPosition(Distance);
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+        motorR_Up.setPower(Power);
+        motorR_Down.setPower(Power);
+        motorL_Up.setPower(Power);
+        motorL_Down.setPower(Power);
+
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+
+        }
+
+        StopDriving();
+    }
+
+    public void bluud_3_comp(int Distance){
+        ArmMotor_Right.getCurrentPosition();
+
+        //Setting Arm Position to the Current Position
+         ArmMotor_Right.getCurrentPosition();
+
+        //Drives to first cube
+        DriveForward(0.5, -1675);
+        sleep(250);
+
+        //Strafes so that color sensors are centered to the first cube
+        StrafeLeft(0.4,225);
+
+        //Sets the Current Position function to the amount of encoder ticks it took for the color sensor to find black while strafing
+        CurrentPosition = StrafeLeftColor(0.2, 2750);
+        if(CurrentPosition < 0)
+            CurrentPosition = CurrentPosition * -1;
+        sleep(250);
+
+        ArmMotor_Right.getCurrentPosition();
+
+        //See autofunctions.java
+        getcube();
+        sleep(100);
+
+        //Turns Left to make a straight trajectory towards the foundation
+        TurnLeftCompensation(0.5,1150);
+        sleep(100);
+
+        ArmUpDown(0.7,150);
+
+
+        //Drives Forward for -1500 - Current Position towards the foundation
+        telemetry.addData("CurrentPosition", "%d", CurrentPosition);
+        telemetry.update();
+        DriveForward(0.9, -2800-CurrentPosition+Distance);
+
+    }
+
+    public void bloodred_3_comp(int Distance){
+        ArmMotor_Right.getCurrentPosition();
+
+        //Setting Arm Position to the Current Position
+        ArmMotor_Right.getCurrentPosition();
+
+        //Drives to first cube
+        DriveForward(0.5, -1675);
+        sleep(250);
+
+        //Strafes so that color sensors are centered to the first cube
+        StrafeRight(0.4,225);
+
+        //Sets the Current Position function to the amount of encoder ticks it took for the color sensor to find black while strafing
+        CurrentPosition = StrafeRightColor(0.2, 2750);
+        if(CurrentPosition < 0)
+            CurrentPosition = CurrentPosition * -1;
+        sleep(250);
+
+        ArmMotor_Right.getCurrentPosition();
+
+        //See autofunctions.java
+        getcube();
+        sleep(100);
+
+        //Turns Left to make a straight trajectory towards the foundation
+        TurnRight(0.5,1150);
+        sleep(100);
+
+        ArmUpDown(0.7,150);
+
+
+        //Drives Forward for -1500 - Current Position towards the foundation
+        telemetry.addData("CurrentPosition", "%d", CurrentPosition);
+        telemetry.update();
+        DriveForward(0.9, -2800-CurrentPosition+Distance);
+
+    }
 }
 
 
