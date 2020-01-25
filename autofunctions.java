@@ -485,7 +485,7 @@ public class autofunctions
 
         int Distance = 200;
         //Drive Backward To move arm up
-        DriveForward(0.7, 650);
+        DriveForward(0.469, 650);
         sleep(250);
 
         //Bring Arm Up
@@ -493,14 +493,14 @@ public class autofunctions
         sleep(250);
 
         //Drive Forward
-        DriveForward(0.7,-600);
+        DriveForward(0.469,-600);
         sleep(569);
 
         //Close the Servo
         CloseServo();
         sleep(569);
 
-        ArmUpDown(1,-700);
+        ArmUpDown(1,-900);
 
         int got_turn = getTurn();
         if (got_turn == 1)
@@ -516,7 +516,7 @@ public class autofunctions
             Distance -= 150;
         }
 
-        DriveForward(0.7, Distance);
+        DriveForward(0.469, Distance);
 
     }
 
@@ -583,15 +583,15 @@ public class autofunctions
         int got_turn = getTurn();
         if (got_turn == 1)
         {
-            Distance  += 7;
+            Distance  += 25;
         }
         if (got_turn == 2)
         {
-            Distance += 25;
+            Distance += 32  ;
         }
         if (got_turn == 3)
         {
-            Distance += 65;
+            Distance += 69;
         }
 
         telemetry.addData("turndistance %d", Distance);
@@ -622,33 +622,35 @@ public class autofunctions
         StopDriving();
     }
 
-    public void bluud_3_comp(int Distance){
+    public void bluud_3_comp(int Distance)
+    {
         ArmMotor_Right.getCurrentPosition();
 
         //Setting Arm Position to the Current Position
          ArmMotor_Right.getCurrentPosition();
 
         //Drives to first cube
-        DriveForward(0.5, -1675);
+        DriveForward(0.469, -1675);
         sleep(250);
 
         //Strafes so that color sensors are centered to the first cube
-        StrafeLeft(0.4,225);
+        StrafeLeft(0.1869,225);
+
+        sleep(350);
 
         //Sets the Current Position function to the amount of encoder ticks it took for the color sensor to find black while strafing
-        CurrentPosition = StrafeLeftColor(0.2, 2750);
+        CurrentPosition = StrafeLeftColor(0.269, 2750);
         if(CurrentPosition < 0)
             CurrentPosition = CurrentPosition * -1;
         sleep(250);
 
         ArmMotor_Right.getCurrentPosition();
 
-        //See autofunctions.java
         getcube();
         sleep(100);
 
         //Turns Left to make a straight trajectory towards the foundation
-        TurnLeftCompensation(0.5,1150);
+        TurnLeftCompensation(0.4,1150);
         sleep(100);
 
         ArmUpDown(0.7,150);

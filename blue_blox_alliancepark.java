@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "FastBluBloxOnes", group = "Tutorials")
+@Autonomous(name = "BluehBlox ..69", group = "Tutorials")
 public class blue_blox_alliancepark extends LinearOpMode
 {
     //all the wheel motors
@@ -139,19 +139,29 @@ public class blue_blox_alliancepark extends LinearOpMode
 
         auto_functions.bluud_3_comp(-250);
 
-        auto_functions.TurnRight(0.569, 800);
+        sleep(100);
 
-       // auto_functions.DriveForward(0.669, -250);
+        auto_functions.TurnRight(0.369, 800);
+
+        sleep(100);
+
+        auto_functions.DriveForward(0.269,-300);
 
         auto_functions.OpenServo();
 
-        //auto_functions.DriveForward(0.669, 250);
+        sleep(100);
 
-        auto_functions.TurnLeft(0.569, 800);
+        auto_functions.DriveForward(0.269,300);
+
+        sleep(100);
+
+        auto_functions.TurnLeft(0.369, 839);
+
+        sleep(100);
 
         auto_functions.CloseServo();
 
-        auto_functions.DriveForward(0.9, 2800+CurrentPosition+250);
+        auto_functions.DriveForward(0.769, 1200);
 
 
     }
