@@ -1,4 +1,4 @@
-//main PACKAGE.
+/*main PACKAGE.
 package org.firstinspires.ftc.teamcode.newprograms;
 
 //hardware imports
@@ -232,3 +232,5 @@ public class BlueBlocks extends LinearOpMode
 
     }
 }
+
+ */

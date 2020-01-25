@@ -571,6 +571,54 @@ public class autofunctions
             return 2;
     }
 
+    public void TurnRightCompensation (double Power, int Distance)
+    {
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        AllBRAKE();
+
+        int got_turn = getTurn();
+        if (got_turn == 1)
+        {
+            Distance  += 25;
+        }
+        if (got_turn == 2)
+        {
+            Distance += 32  ;
+        }
+        if (got_turn == 3)
+        {
+            Distance += 69;
+        }
+
+        motorR_Up.setTargetPosition(-Distance);
+        motorR_Down.setTargetPosition(-Distance);
+        motorL_Up.setTargetPosition(-Distance);
+        motorL_Down.setTargetPosition(-Distance);
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+        motorR_Up.setPower(-Power);
+        motorR_Down.setPower(-Power);
+        motorL_Up.setPower(-Power);
+        motorL_Down.setPower(-Power);
+
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+            //Wait until the task is done
+        }
+
+        StopDriving();
+    }
+
     public void TurnLeftCompensation (double Power, int Distance)
     {
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
@@ -653,7 +701,7 @@ public class autofunctions
         TurnLeftCompensation(0.4,1150);
         sleep(100);
 
-        ArmUpDown(0.7,150);
+        ArmUpDown(0.9,150);
 
 
         //Drives Forward for -1500 - Current Position towards the foundation
@@ -663,21 +711,22 @@ public class autofunctions
 
     }
 
-    public void bloodred_3_comp(int Distance){
+    public void bloodred_3_comp(int Distance)
+    {
         ArmMotor_Right.getCurrentPosition();
 
         //Setting Arm Position to the Current Position
         ArmMotor_Right.getCurrentPosition();
 
         //Drives to first cube
-        DriveForward(0.5, -1675);
+        DriveForward(0.469, -1675);
         sleep(250);
 
         //Strafes so that color sensors are centered to the first cube
-        StrafeRight(0.4,225);
+        StrafeRight(0.1869,225);
 
         //Sets the Current Position function to the amount of encoder ticks it took for the color sensor to find black while strafing
-        CurrentPosition = StrafeRightColor(0.2, 2750);
+        CurrentPosition = StrafeRightColor(0.269, 2750);
         if(CurrentPosition < 0)
             CurrentPosition = CurrentPosition * -1;
         sleep(250);
@@ -689,10 +738,10 @@ public class autofunctions
         sleep(100);
 
         //Turns Left to make a straight trajectory towards the foundation
-        TurnRight(0.5,1150);
+        TurnRightCompensation(0.4,1150);
         sleep(100);
 
-        ArmUpDown(0.7,150);
+        ArmUpDown(0.9,150);
 
 
         //Drives Forward for -1500 - Current Position towards the foundation
