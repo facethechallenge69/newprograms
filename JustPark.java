@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "blueblock alliance park", group = "Tutorials")
-public class blue_blox_alliancepark extends LinearOpMode
+@Autonomous(name = "JustPark69", group = "Tutorials")
+public class JustPark extends LinearOpMode
 {
     //all the wheel motors
     private DcMotor motorL_Up;
@@ -122,48 +122,19 @@ public class blue_blox_alliancepark extends LinearOpMode
                 telemetry);
 
         //Init Position
-        auto_functions.ServoUp();
 
-        auto_functions.OpenServo();
-        //Position should be that the foundation servos are up against the wall, and the gaps between
-        //the wheel motors is centered along the line of mat.
-
-        //Waiting for Start to be pressed
-
-        ArmMotor_Right.getCurrentPosition();
-
-        shake_shack_servo.setPosition(1);
 
         waitForStart();
 
 
-        auto_functions.bluud_3_comp(-250);
+        auto_functions.ArmUpDown(0.8, 1681);
+
+        sleep(3000);
+
+        auto_functions.DriveForward(0.3, -1000);
 
 
-        auto_functions.DriveForward(0.6,-1469);
 
-
-        auto_functions.TurnRight(0.369, 800);
-
-        sleep(100);
-
-        auto_functions.DriveForward(0.269,-300);
-
-        auto_functions.OpenServo();
-
-        sleep(100);
-
-        auto_functions.DriveForward(0.269,300);
-
-        sleep(100);
-
-        auto_functions.TurnLeft(0.369, 839);
-
-        sleep(100);
-
-        auto_functions.CloseServo();
-
-        auto_functions.DriveForward(0.769, 1469);
 
 
     }

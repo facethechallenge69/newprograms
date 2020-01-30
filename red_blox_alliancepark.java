@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "BloodBlox", group = "Tutorials")
+@Autonomous(name = "BloodBlox alliance park", group = "Tutorials")
 public class red_blox_alliancepark extends LinearOpMode
 {
     //all the wheel motors
@@ -140,6 +140,8 @@ public class red_blox_alliancepark extends LinearOpMode
 
         sleep(100);
 
+        auto_functions.DriveForward(0.6,-1469);
+
         auto_functions.TurnLeft(0.369, 800);
 
         sleep(100);
@@ -160,7 +162,7 @@ public class red_blox_alliancepark extends LinearOpMode
 
         auto_functions.CloseServo();
 
-        auto_functions.DriveForward(0.769, 1200);
+        auto_functions.DriveForward(0.769, 1469);
 
 
     }

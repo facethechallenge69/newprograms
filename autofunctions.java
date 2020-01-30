@@ -500,7 +500,7 @@ public class autofunctions
         CloseServo();
         sleep(569);
 
-        ArmUpDown(1,-900);
+        ArmUpDown(1,-669);
 
         int got_turn = getTurn();
         if (got_turn == 1)
@@ -707,7 +707,7 @@ public class autofunctions
         //Drives Forward for -1500 - Current Position towards the foundation
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
         telemetry.update();
-        DriveForward(0.9, -2800-CurrentPosition+Distance);
+        DriveForward(0.9, -1600-CurrentPosition+Distance);
 
     }
 
@@ -725,6 +725,8 @@ public class autofunctions
         //Strafes so that color sensors are centered to the first cube
         StrafeRight(0.1869,225);
 
+        sleep(350);
+
         //Sets the Current Position function to the amount of encoder ticks it took for the color sensor to find black while strafing
         CurrentPosition = StrafeRightColor(0.269, 2750);
         if(CurrentPosition < 0)
@@ -733,7 +735,6 @@ public class autofunctions
 
         ArmMotor_Right.getCurrentPosition();
 
-        //See autofunctions.java
         getcube();
         sleep(100);
 
@@ -747,9 +748,37 @@ public class autofunctions
         //Drives Forward for -1500 - Current Position towards the foundation
         telemetry.addData("CurrentPosition", "%d", CurrentPosition);
         telemetry.update();
-        DriveForward(0.9, -2800-CurrentPosition+Distance);
+        DriveForward(0.9, -1600-CurrentPosition+Distance);
 
     }
+
+
+    public void Side_Arm_Outline_Comp(int Distance)
+    {
+        ArmMotor_Right.getCurrentPosition();
+
+        //Setting Arm Position to the Current Position
+        ArmMotor_Right.getCurrentPosition();
+
+        //Drives to first cube
+        DriveForward(0.469, -1675);
+        sleep(250);
+
+        TurnRight(0.69,69);
+
+        DriveForward(0.69,69);
+
+        
+
+
+
+
+
+
+
+    }
+
+
 }
 
 

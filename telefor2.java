@@ -6,7 +6,7 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "tele6.9", group = "Tutorials")
+@TeleOp(name = "tele 6.9", group = "Tutorials")
 
 public class
 telefor2 extends LinearOpMode {
@@ -70,6 +70,8 @@ telefor2 extends LinearOpMode {
         int ArmPosition = 0;
 
         double ShakeServo = 0;
+
+        double shakeyshack = 0;
 
 
 
@@ -221,7 +223,7 @@ telefor2 extends LinearOpMode {
             // red/black servo movement
 
 
-            if(gamepad2.dpad_up)
+            if(gamepad2.dpad_left)
             {
                 RedServo.setPosition(1);
                 BlackServo.setPosition(1);
@@ -229,7 +231,7 @@ telefor2 extends LinearOpMode {
 
 
 
-            if (gamepad2.dpad_down)
+            if (gamepad2.dpad_right)
             {
                 BlackServo.setPosition(0);
                 RedServo.setPosition(0);
@@ -268,12 +270,30 @@ telefor2 extends LinearOpMode {
                 ArmMotor_Right.getCurrentPosition();
                 ArmPosition = ArmMotor_Right.getCurrentPosition();
 
+
+
+
+
+
+/*
+                if(gamepad2.dpad_up){
+                    shakeyshack -= 0.05;
+                }
+
+                if (gamepad2.dpad_down){
+                    shakeyshack += 0.05;
+                }
+
+                if(gamepad2.y){
+                    shake_shack_servo.setPosition(shakeyshack);
+                }
+*/
+                telemetry.addData("shakeyshack = %d", shakeyshack);
+
+                shake_shack_servo.setPosition((0.000591404 * ArmPosition) + 0.706065);
+
+
                 ShakeServo = shake_shack_servo.getPosition();
-
-
-
-                shake_shack_servo.setPosition((0.000553016*ArmPosition)+0.955998);
-
 
 
 

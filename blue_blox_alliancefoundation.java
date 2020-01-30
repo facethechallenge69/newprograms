@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "blueblock alliance park", group = "Tutorials")
-public class blue_blox_alliancepark extends LinearOpMode
+@Autonomous(name = "blue blox alliance foundation", group = "Tutorials")
+public class blue_blox_alliancefoundation extends LinearOpMode
 {
     //all the wheel motors
     private DcMotor motorL_Up;
@@ -137,34 +137,17 @@ public class blue_blox_alliancepark extends LinearOpMode
         waitForStart();
 
 
-        auto_functions.bluud_3_comp(-250);
+        auto_functions.bluud_3_comp(+250);
 
+        sleep(10000);
 
-        auto_functions.DriveForward(0.6,-1469);
-
-
-        auto_functions.TurnRight(0.369, 800);
-
-        sleep(100);
-
-        auto_functions.DriveForward(0.269,-300);
+        auto_functions.DriveForward(0.6,-800);
 
         auto_functions.OpenServo();
 
-        sleep(100);
+        sleep(2000);
 
-        auto_functions.DriveForward(0.269,300);
-
-        sleep(100);
-
-        auto_functions.TurnLeft(0.369, 839);
-
-        sleep(100);
-
-        auto_functions.CloseServo();
-
-        auto_functions.DriveForward(0.769, 1469);
-
+        auto_functions.DriveForward (0.6, 800);
 
     }
 }
