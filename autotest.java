@@ -32,6 +32,10 @@ public class autotest extends LinearOpMode
     private Servo armservo;
     private Servo servoarm;
     private Servo shake_shack_servo;
+
+    private Servo side_servo;
+    private Servo side_servo_claw;
+
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
 
@@ -66,6 +70,9 @@ public class autotest extends LinearOpMode
 
         shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
+        side_servo = hardwareMap.servo.get("side_servo");
+        side_servo_claw = hardwareMap.servo.get("side_servo_gang");
+
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         parameters.calibrationDataFile = "BNO055IMUCalibration.json";
@@ -90,7 +97,6 @@ public class autotest extends LinearOpMode
       ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
-
         auto_functions.Initialize(motorL_Down,
                 motorR_Down,
                 motorR_Up,
@@ -104,9 +110,10 @@ public class autotest extends LinearOpMode
                 imu,
                 colorSensor1,
                 colorSensor2,
+                side_servo,
+                side_servo_claw,
 
                 telemetry);
-
 
         //Waiting for the user to press start
         waitForStart();

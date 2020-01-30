@@ -43,6 +43,10 @@ public class autofunctions
 
     private Servo shake_shack_servo;
 
+    private Servo side_servo;
+
+    private Servo side_servo_claw;
+
     int CurrentPosition = 0;
 
     int ArmPosition = 0;
@@ -77,6 +81,8 @@ public class autofunctions
                            BNO055IMU imuIn,
                            NormalizedColorSensor colorSensor1In,
                            NormalizedColorSensor colorSensor2In,
+                           Servo side_servoIn,
+                           Servo side_servo_clawIn,
 
                            Telemetry telemetryIn)
     {
@@ -94,6 +100,8 @@ public class autofunctions
         imu = imuIn;
         colorSensor1 = colorSensor1In;
         colorSensor2 = colorSensor2In;
+        side_servo = side_servoIn;
+        side_servo_claw = side_servo_clawIn;
 
         telemetry = telemetryIn;
 
@@ -753,6 +761,56 @@ public class autofunctions
     }
 
 
+    public int DriveForwardColor (double Power, int Distance)
+    {
+
+        int CurrentPosition = 0;
+
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        AllBRAKE();
+
+        motorR_Up.setTargetPosition(Distance);
+        motorR_Down.setTargetPosition(Distance);
+        motorL_Up.setTargetPosition(-Distance);
+        motorL_Down.setTargetPosition(-Distance);
+
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        motorR_Up.setPower(Power);
+        motorR_Down.setPower(Power);
+        motorL_Up.setPower(-Power);
+        motorL_Down.setPower(-Power);
+
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+            int got_color = getcubecolor();
+            if (got_color == 1)
+            {
+                CurrentPosition = motorR_Up.getCurrentPosition();
+                break;
+            }
+
+
+        }
+
+        StopDriving();
+
+        return CurrentPosition;
+
+    }
+
+
+
     public void Side_Arm_Outline_Comp(int Distance)
     {
         ArmMotor_Right.getCurrentPosition();
@@ -768,7 +826,18 @@ public class autofunctions
 
         DriveForward(0.69,69);
 
-        
+        CurrentPosition = DriveForwardColor(0.269, 2750);
+        if(CurrentPosition < 0)
+            CurrentPosition = CurrentPosition * -1;
+        sleep(250);
+
+        side_servo.setPosition(0.69);
+
+        side_servo_claw.setPosition(0.69);
+
+
+
+
 
 
 

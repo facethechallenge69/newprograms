@@ -46,6 +46,9 @@ public class blue_blox_alliancepark extends LinearOpMode
     //Sleep calling
     private ElapsedTime runtime = new ElapsedTime();
 
+    private Servo side_servo;
+    private Servo side_servo_claw;
+
     //gyro
     BNO055IMU imu;
 
@@ -88,6 +91,9 @@ public class blue_blox_alliancepark extends LinearOpMode
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
 
+        side_servo = hardwareMap.servo.get("side_servo");
+        side_servo_claw = hardwareMap.servo.get("side_servo_gang");
+
         //potential gyro, we will just let it stay here
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -105,6 +111,7 @@ public class blue_blox_alliancepark extends LinearOpMode
         ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Initializing from autofunctions.java
+
         auto_functions.Initialize(motorL_Down,
                 motorR_Down,
                 motorR_Up,
@@ -118,6 +125,8 @@ public class blue_blox_alliancepark extends LinearOpMode
                 imu,
                 colorSensor1,
                 colorSensor2,
+                side_servo,
+                side_servo_claw,
 
                 telemetry);
 

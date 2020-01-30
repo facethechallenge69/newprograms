@@ -43,6 +43,9 @@ public class red_blox_alliancefoundation extends LinearOpMode
     private Servo armservo;
     private Servo shake_shack_servo;
 
+    private Servo side_servo;
+    private Servo side_servo_claw;
+
     //Sleep calling
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -84,6 +87,9 @@ public class red_blox_alliancefoundation extends LinearOpMode
         armservo = hardwareMap.servo.get("arm_servo");
         shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
+        side_servo = hardwareMap.servo.get("side_servo");
+        side_servo_claw = hardwareMap.servo.get("side_servo_gang");
+
         //colors
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
@@ -118,9 +124,10 @@ public class red_blox_alliancefoundation extends LinearOpMode
                 imu,
                 colorSensor1,
                 colorSensor2,
+                side_servo,
+                side_servo_claw,
 
                 telemetry);
-
         //Init Position
         auto_functions.ServoUp();
 

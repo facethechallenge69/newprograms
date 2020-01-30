@@ -43,6 +43,9 @@ public class JustPark extends LinearOpMode
     private Servo armservo;
     private Servo shake_shack_servo;
 
+    private Servo side_servo;
+    private Servo side_servo_claw;
+
     //Sleep calling
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -88,6 +91,13 @@ public class JustPark extends LinearOpMode
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
 
+        side_servo = hardwareMap.servo.get("side_servo");
+        side_servo_claw = hardwareMap.servo.get("side_servo_gang");
+
+
+
+
+
         //potential gyro, we will just let it stay here
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -118,6 +128,8 @@ public class JustPark extends LinearOpMode
                 imu,
                 colorSensor1,
                 colorSensor2,
+                side_servo,
+                side_servo_claw,
 
                 telemetry);
 
