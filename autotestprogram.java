@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "blueblock alliance park", group = "Tutorials")
-public class blue_blox_alliancepark extends LinearOpMode
+@Autonomous(name = "autofunctionstest", group = "Tutorials")
+public class autotestprogram extends LinearOpMode
 {
     //all the wheel motors
     private DcMotor motorL_Up;
@@ -43,15 +43,11 @@ public class blue_blox_alliancepark extends LinearOpMode
     private Servo armservo;
     private Servo shake_shack_servo;
 
-    //Sleep calling
-    private ElapsedTime runtime = new ElapsedTime();
-
     private Servo side_servo;
     private Servo side_servo_claw;
 
-
-    private DcMotor Side_Arm_Gang;
-
+    //Sleep calling
+    private ElapsedTime runtime = new ElapsedTime();
 
     //gyro
     BNO055IMU imu;
@@ -91,17 +87,12 @@ public class blue_blox_alliancepark extends LinearOpMode
         armservo = hardwareMap.servo.get("arm_servo");
         shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
-
-
         //colors
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
 
         side_servo = hardwareMap.servo.get("side_servo");
         side_servo_claw = hardwareMap.servo.get("side_servo_gang");
-
-        Side_Arm_Gang = hardwareMap.dcMotor.get("gang_side_arm");
-
 
         //potential gyro, we will just let it stay here
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -119,10 +110,7 @@ public class blue_blox_alliancepark extends LinearOpMode
         ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        Side_Arm_Gang.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-
         //Initializing from autofunctions.java
-
         auto_functions.Initialize(motorL_Down,
                 motorR_Down,
                 motorR_Up,
@@ -138,53 +126,14 @@ public class blue_blox_alliancepark extends LinearOpMode
                 colorSensor2,
                 side_servo,
                 side_servo_claw,
-                Side_Arm_Gang,
 
                 telemetry);
-        //Init Position
-        auto_functions.ServoUp();
 
-        auto_functions.OpenServo();
-        //Position should be that the foundation servos are up against the wall, and the gaps between
-        //the wheel motors is centered along the line of mat.
+       waitForStart();
 
-        //Waiting for Start to be pressed
+       auto_functions.DriveForward(0.8,2500);
 
-        ArmMotor_Right.getCurrentPosition();
-
-        shake_shack_servo.setPosition(1);
-
-        waitForStart();
-
-
-        auto_functions.bluud_3_comp(-250);
-
-
-        auto_functions.DriveForward(0.6,-1469);
-
-
-        auto_functions.TurnRight(0.369, 800);
-
-        sleep(100);
-
-        auto_functions.DriveForward(0.269,-300);
-
-        auto_functions.OpenServo();
-
-        sleep(100);
-
-        auto_functions.DriveForward(0.269,300);
-
-        sleep(100);
-
-        auto_functions.TurnLeft(0.369, 839);
-
-        sleep(100);
-
-        auto_functions.CloseServo();
-
-        auto_functions.DriveForward(0.769, 1469);
-
+       auto_functions.rotate(90,0.8);
 
     }
 }

@@ -47,6 +47,8 @@ public class autofunctions
 
     private Servo side_servo_claw;
 
+    private DcMotor Side_Arm_Gang;
+
     int CurrentPosition = 0;
 
     int ArmPosition = 0;
@@ -54,12 +56,12 @@ public class autofunctions
 
     private ElapsedTime runtime = new ElapsedTime();
 
-    Orientation             lastAngles = new Orientation();
-    double                  globalAngle, power = .169, correction;
-    double     FORWARD_SPEED = 0.6;
-    double     TURN_SPEED    = 0.5;
-
     BNO055IMU imu;
+
+    Orientation             lastAngles = new Orientation();
+    double                  globalAngle, power = .7, correction;
+
+
 
     Orientation angles;
 
@@ -83,6 +85,7 @@ public class autofunctions
                            NormalizedColorSensor colorSensor2In,
                            Servo side_servoIn,
                            Servo side_servo_clawIn,
+                           DcMotor Side_Arm_GangIn,
 
                            Telemetry telemetryIn)
     {
@@ -102,52 +105,88 @@ public class autofunctions
         colorSensor2 = colorSensor2In;
         side_servo = side_servoIn;
         side_servo_claw = side_servo_clawIn;
+        Side_Arm_Gang = Side_Arm_GangIn;
 
         telemetry = telemetryIn;
-
-
     }
 
-
-
-    public void DriveForward(double Power, int Distance)
+    public void DriveForward (double Power, int Distance)
     {
-
-
         motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
 
         AllBRAKE();
 
         motorL_Down.setTargetPosition(-Distance);
+        motorR_Down.setTargetPosition(Distance);
         motorL_Up.setTargetPosition(-Distance);
         motorR_Up.setTargetPosition(Distance);
-        motorR_Down.setTargetPosition(Distance);
 
         motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
-        motorL_Down.setPower(-Power);
-        motorL_Up.setPower(-Power);
+        motorL_Down.setPower(Power);
+        motorL_Up.setPower(Power);
         motorR_Up.setPower(Power);
         motorR_Down.setPower(Power);
 
+        motorR_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        while (motorR_Down.isBusy()&& motorL_Down.isBusy()&&motorR_Up.isBusy()&&motorL_Up.isBusy())
+        {
+            //Wait until the task is done
+        }
+        StopDriving();
+    }
+
+
+    public void DriveForwardGyro(double Power, int Distance)
+    {
+        correction = checkDirection();
+
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        AllBRAKE();
+
+        motorL_Down.setTargetPosition(-Distance);
+        motorR_Down.setTargetPosition(Distance);
+
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        motorL_Up.setDirection(DcMotor.Direction.REVERSE);
+
+
+        motorL_Down.setPower(Power-correction);
+        motorL_Up.setPower(Power);
+        motorR_Up.setPower(Power);
+        motorR_Down.setPower(Power+correction);
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        while (motorR_Down.isBusy()&& motorL_Down.isBusy())
         {
             //Wait until the task is done
         }
         StopDriving();
 
-        motorR_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorL_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
     }
 
     public void TurnLeft(double Power, int Distance)
@@ -259,6 +298,91 @@ public class autofunctions
         StopDriving();
     }
 
+    public void StrafeRightGyro(double Power, int Distance)
+    {
+        correction = checkDirection();
+
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+        AllBRAKE();
+
+        motorR_Up.setTargetPosition(-Distance);
+        motorR_Down.setTargetPosition(Distance);
+        motorL_Up.setTargetPosition(-Distance);
+        motorL_Down.setTargetPosition(Distance);
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+
+        motorR_Up.setPower(-Power);
+        motorR_Down.setPower(Power);
+        motorL_Up.setPower(-Power);
+        motorL_Down.setPower(Power);
+
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+            //Wait until the task is done
+        }
+
+        StopDriving();
+    }
+
+
+    public int StrafeRightColor (double Power, int Distance)
+    {
+
+        int CurrentPosition = 0;
+
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        AllBRAKE();
+
+        motorR_Up.setTargetPosition(-Distance);
+        motorR_Down.setTargetPosition(Distance);
+        motorL_Up.setTargetPosition(-Distance);
+        motorL_Down.setTargetPosition(Distance);
+
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        motorR_Up.setPower(-Power);
+        motorR_Down.setPower(Power);
+        motorL_Up.setPower(-Power);
+        motorL_Down.setPower(Power);
+
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+            int got_color = getcubecolor();
+            if (got_color == 1)
+            {
+                CurrentPosition = motorR_Up.getCurrentPosition();
+                break;
+            }
+
+
+        }
+
+        StopDriving();
+
+        return CurrentPosition;
+
+    }
+
     public void StrafeLeft(double Power, int Distance)
     {
 
@@ -293,6 +417,54 @@ public class autofunctions
         }
 
         StopDriving();
+    }
+
+    public int StrafeLeftColor (double Power, int Distance)
+    {
+
+        int CurrentPosition = 0;
+
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
+        AllBRAKE();
+
+        motorR_Up.setTargetPosition(Distance);
+        motorR_Down.setTargetPosition(-Distance);
+        motorL_Up.setTargetPosition(Distance);
+        motorL_Down.setTargetPosition(-Distance);
+
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+
+        motorR_Up.setPower(Power);
+        motorR_Down.setPower(-Power);
+        motorL_Up.setPower(Power);
+        motorL_Down.setPower(-Power);
+
+        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
+        {
+            int got_color = getcubecolor();
+            if (got_color == 1)
+            {
+                CurrentPosition = motorR_Up.getCurrentPosition();
+                break;
+            }
+
+
+        }
+
+        StopDriving();
+
+        return CurrentPosition;
+
     }
 
     public void ArmUpDown    (double Power, int Distance)
@@ -349,103 +521,6 @@ public class autofunctions
        armservo.setPosition(0);
    }
 
-    public int StrafeRightColor (double Power, int Distance)
-    {
-
-        int CurrentPosition = 0;
-
-        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
-        AllBRAKE();
-
-        motorR_Up.setTargetPosition(-Distance);
-        motorR_Down.setTargetPosition(Distance);
-        motorL_Up.setTargetPosition(-Distance);
-        motorL_Down.setTargetPosition(Distance);
-
-
-        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        motorR_Up.setPower(-Power);
-        motorR_Down.setPower(Power);
-        motorL_Up.setPower(-Power);
-        motorL_Down.setPower(Power);
-
-        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
-        {
-            int got_color = getcubecolor();
-            if (got_color == 1)
-            {
-                CurrentPosition = motorR_Up.getCurrentPosition();
-                break;
-            }
-
-
-        }
-
-        StopDriving();
-
-        return CurrentPosition;
-
-    }
-
-    public int StrafeLeftColor (double Power, int Distance)
-    {
-
-        int CurrentPosition = 0;
-
-        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
-
-        AllBRAKE();
-
-        motorR_Up.setTargetPosition(Distance);
-        motorR_Down.setTargetPosition(-Distance);
-        motorL_Up.setTargetPosition(Distance);
-        motorL_Down.setTargetPosition(-Distance);
-
-
-        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-
-
-        motorR_Up.setPower(Power);
-        motorR_Down.setPower(-Power);
-        motorL_Up.setPower(Power);
-        motorL_Down.setPower(-Power);
-
-        while (motorR_Up.isBusy() && motorR_Down.isBusy()&& motorL_Up.isBusy()&& motorL_Down.isBusy())
-        {
-            int got_color = getcubecolor();
-            if (got_color == 1)
-            {
-                CurrentPosition = motorR_Up.getCurrentPosition();
-                break;
-            }
-
-
-        }
-
-        StopDriving();
-
-        return CurrentPosition;
-
-    }
-
-
     public void ServoDown ()
     {
       BlackServo.setPosition(-0.8);
@@ -467,10 +542,7 @@ public class autofunctions
 
         ArmMotor_Right.setPower(0);
         ArmMotor_Right.setPower(0);
-
     }
-
-
 
     public void AllFLOAT ()
     {
@@ -834,20 +906,111 @@ public class autofunctions
         side_servo.setPosition(0.69);
 
         side_servo_claw.setPosition(0.69);
-
-
-
-
-
-
-
-
-
-
-
     }
 
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    //GYRO STUFF DONT TOUCH/REMOVE
+    private void resetAngle()
+    {
+        lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
+        globalAngle = 0;
+    }
+
+    private double getAngle()
+    {
+        Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+
+        double deltaAngle = angles.firstAngle - lastAngles.firstAngle;
+
+        if (deltaAngle < -180)
+            deltaAngle += 360;
+        else if (deltaAngle > 180)
+            deltaAngle -= 360;
+
+        globalAngle += deltaAngle;
+
+        lastAngles = angles;
+
+        return globalAngle;
+    }
+
+    private double checkDirection()
+    {
+        double correction, angle, gain = .10;
+
+        angle = getAngle();
+
+        if (angle == 0)
+            correction = 0;
+        else
+            correction = -angle;
+
+        correction = correction * gain;
+
+        return correction;
+    }
+
+    /**
+     * Rotate left or right the number of degrees. Does not support turning more than 180 degrees.
+     * @param degrees Degrees to turn, + is left - is right
+     */
+    public void rotate(int degrees, double power)
+    {
+        double  leftPower, rightPower;
+
+        // restart imu movement tracking.
+        resetAngle();
+
+        // getAngle() returns + when rotating counter clockwise (left) and - when rotating
+        // clockwise (right).
+
+        if (degrees < 0)
+        {   // turn right.
+            leftPower = power;
+            rightPower = -power;
+        }
+        else if (degrees > 0)
+        {   // turn left.
+            leftPower = -power;
+            rightPower = power;
+        }
+        else return;
+
+        // set power to rotate.
+        motorL_Up.setPower(leftPower);
+        motorR_Up.setPower(rightPower);
+
+        // rotate until turn is completed.
+        if (degrees < 0)
+        {
+            // On right turn we have to get off zero first.
+            while (getAngle() == 0) {}
+
+            while (getAngle() > degrees) {}
+        }
+        else    // left turn.
+            while (getAngle() < degrees) {}
+
+        // turn the motors off.
+        motorR_Up.setPower(0);
+        motorL_Up.setPower(0);
+
+        // wait for rotation to stop.
+        sleep(1000);
+
+        // reset angle tracking on new heading.
+        resetAngle();
+    }
 }
 
 

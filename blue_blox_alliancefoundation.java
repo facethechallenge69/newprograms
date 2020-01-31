@@ -46,6 +46,8 @@ public class blue_blox_alliancefoundation extends LinearOpMode
     private Servo side_servo;
     private Servo side_servo_claw;
 
+    private DcMotor Side_Arm_Gang;
+
     //Sleep calling
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -94,6 +96,8 @@ public class blue_blox_alliancefoundation extends LinearOpMode
         side_servo = hardwareMap.servo.get("side_servo");
         side_servo_claw = hardwareMap.servo.get("side_servo_gang");
 
+        Side_Arm_Gang = hardwareMap.dcMotor.get("gang_side_arm");
+
         //potential gyro, we will just let it stay here
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -111,6 +115,7 @@ public class blue_blox_alliancefoundation extends LinearOpMode
         ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         //Initializing from autofunctions.java
+
         auto_functions.Initialize(motorL_Down,
                 motorR_Down,
                 motorR_Up,
@@ -126,6 +131,7 @@ public class blue_blox_alliancefoundation extends LinearOpMode
                 colorSensor2,
                 side_servo,
                 side_servo_claw,
+                Side_Arm_Gang,
 
                 telemetry);
 
