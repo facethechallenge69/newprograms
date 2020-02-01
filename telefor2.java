@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode.newprograms;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -26,6 +27,11 @@ telefor2 extends LinearOpMode {
     private Servo shake_shack_servo;
 
     private DcMotor Side_Arm_Gang;
+
+    NormalizedColorSensor colorSensor1;
+    NormalizedColorSensor colorSensor2;
+    NormalizedColorSensor colorSensor3;
+    NormalizedColorSensor colorSensor4;
 
 
     int MOV_LEFT_RIGHT = 1;
@@ -272,6 +278,10 @@ telefor2 extends LinearOpMode {
                     armPower = 0.1769;
                 }
 
+                if(gamepad2.x){
+                    armPower = 0.69;
+                }
+
 
                 ArmMotor_Right.getCurrentPosition();
                 ArmPosition = ArmMotor_Right.getCurrentPosition();
@@ -280,7 +290,6 @@ telefor2 extends LinearOpMode {
 
 
 
-                Side_Arm_Gang.setPower(gamepad1.right_stick_y);
 
 /*
                 if(gamepad2.dpad_up){

@@ -46,6 +46,8 @@ public class autotestprogram extends LinearOpMode
     private Servo side_servo;
     private Servo side_servo_claw;
 
+    private DcMotor Side_Arm_Gang;
+
     //Sleep calling
     private ElapsedTime runtime = new ElapsedTime();
 
@@ -58,6 +60,8 @@ public class autotestprogram extends LinearOpMode
     //calling colorsensors
     NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
+    NormalizedColorSensor colorSensor3;
+    NormalizedColorSensor colorSensor4;
 
     //calling auto_functions.
     autofunctions auto_functions = new autofunctions();
@@ -90,6 +94,8 @@ public class autotestprogram extends LinearOpMode
         //colors
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
+        colorSensor3 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color.2");
+        colorSensor4 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color.2");
 
         side_servo = hardwareMap.servo.get("side_servo");
         side_servo_claw = hardwareMap.servo.get("side_servo_gang");
@@ -124,6 +130,9 @@ public class autotestprogram extends LinearOpMode
                 imu,
                 colorSensor1,
                 colorSensor2,
+                colorSensor3,
+                colorSensor4,
+
                 side_servo,
                 side_servo_claw,
 

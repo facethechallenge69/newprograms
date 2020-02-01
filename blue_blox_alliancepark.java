@@ -138,7 +138,6 @@ public class blue_blox_alliancepark extends LinearOpMode
                 colorSensor2,
                 side_servo,
                 side_servo_claw,
-                Side_Arm_Gang,
 
                 telemetry);
         //Init Position

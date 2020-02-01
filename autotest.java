@@ -36,7 +36,7 @@ public class autotest extends LinearOpMode
     private Servo side_servo;
     private Servo side_servo_claw;
 
-    private DcMotor Side_Arm_Gang;
+
 
     private ElapsedTime runtime = new ElapsedTime();
     BNO055IMU imu;
@@ -45,6 +45,8 @@ public class autotest extends LinearOpMode
 
     NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
+    NormalizedColorSensor colorSensor3;
+    NormalizedColorSensor colorSensor4;
 
     autofunctions auto_functions = new autofunctions();
 
@@ -75,7 +77,6 @@ public class autotest extends LinearOpMode
         side_servo = hardwareMap.servo.get("side_servo");
         side_servo_claw = hardwareMap.servo.get("side_servo_gang");
 
-        Side_Arm_Gang = hardwareMap.dcMotor.get("gang_side_arm");
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

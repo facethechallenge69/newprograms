@@ -58,6 +58,8 @@ public class red_blox_alliancefoundation extends LinearOpMode
     //calling colorsensors
     NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
+    NormalizedColorSensor colorSensor3;
+    NormalizedColorSensor colorSensor4;
 
     //calling auto_functions.
     autofunctions auto_functions = new autofunctions();
@@ -93,6 +95,8 @@ public class red_blox_alliancefoundation extends LinearOpMode
         //colors
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
+        colorSensor3 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color.2");
+        colorSensor4 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color.2");
 
         //potential gyro, we will just let it stay here
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -124,6 +128,8 @@ public class red_blox_alliancefoundation extends LinearOpMode
                 imu,
                 colorSensor1,
                 colorSensor2,
+                colorSensor3,
+                colorSensor4,
                 side_servo,
                 side_servo_claw,
 
