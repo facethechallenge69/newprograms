@@ -188,6 +188,22 @@ public class autotest extends LinearOpMode
                 shake_shack_servo.setPosition(servo_arm_position);
             }
 
+            if (gamepad2.y)
+            {
+                side_servo.setPosition(0.3);
+            }
+            if (gamepad2.x)
+            {
+                side_servo.setPosition(0.6);
+            }
+            if (gamepad2.a)
+            {
+                side_servo_claw.setPosition(0);
+            }
+            if (gamepad2.b)
+            {
+                side_servo_claw.setPosition(1);
+            }
 
 
             if((last_encoder_tics != encoder_tics) || (last_encode_speed !=  encoder_speed) || (last_servo_arm_postition != servo_arm_position))
