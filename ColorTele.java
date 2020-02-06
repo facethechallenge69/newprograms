@@ -30,7 +30,7 @@ public class ColorTele extends LinearOpMode {
 
         colorSensor4 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color.2");
 
-        touch =  hardwareMap.touchSensor.get("touch_sensor");
+     //   touch =  hardwareMap.touchSensor.get("touch_sensor");
 
         waitForStart();
 

@@ -116,33 +116,29 @@ public class autofunctions
 
     public void DriveForward (double Power, int Distance)
     {
-        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
         AllBRAKE();
 
-        motorL_Down.setTargetPosition(-Distance);
+        motorR_Up.setTargetPosition(Distance);
         motorR_Down.setTargetPosition(Distance);
         motorL_Up.setTargetPosition(-Distance);
-        motorR_Up.setTargetPosition(Distance);
+        motorL_Down.setTargetPosition(-Distance);
 
-        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorL_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        motorR_Up.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-        motorL_Down.setPower(Power);
-        motorL_Up.setPower(Power);
+
+
         motorR_Up.setPower(Power);
         motorR_Down.setPower(Power);
-
-        motorR_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorL_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Up.setPower(-Power);
+        motorL_Down.setPower(-Power);
 
         while (motorR_Down.isBusy()&& motorL_Down.isBusy()&&motorR_Up.isBusy()&&motorL_Up.isBusy())
         {
@@ -630,7 +626,7 @@ public class autofunctions
                 .addData("g", "%d", Color.green(color))
                 .addData("b", "%d", Color.blue(color));
 
-        if (Color.red(color) < 100 && Color.red(color) > 0 && Color.red(color2) < 100 && Color.red(color2) > 0) {
+        if (Color.red(color) < 75 && Color.red(color) > 0 && Color.red(color2) < 75 && Color.red(color2) > 0) {
             telemetry.addLine("Got black");
             telemetry.update();
             return 1; // 1 = true
@@ -667,7 +663,7 @@ public class autofunctions
                 .addData("r","%d", Color.red(color4));
 
 
-        if (Color.red(color3) < 100 && Color.red(color3) > 0 && Color.red(color4) < 100 && Color.red(color4) > 0) {
+        if (Color.red(color3) < 75 && Color.red(color3) > 0 && Color.red(color4) < 75 && Color.red(color4) > 0) {
             telemetry.addLine("Got black");
             telemetry.update();
             return 1; // 1 = true

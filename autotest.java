@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@TeleOp(name = "AutoBes", group = "Tutorials")
+@TeleOp(name = "AutoBesty", group = "Tutorials")
 public class autotest extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -102,6 +102,26 @@ public class autotest extends LinearOpMode
 
        ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
       ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+        auto_functions.Initialize(motorL_Down,
+                motorR_Down,
+                motorR_Up,
+                motorL_Up,
+                RedServo,
+                BlackServo,
+                ArmMotor_Left,
+                ArmMotor_Right,
+                armservo,
+                shake_shack_servo,
+                imu,
+                colorSensor1,
+                colorSensor2,
+                colorSensor3,
+                colorSensor4,
+                side_servo,
+                side_servo_claw,
+
+                telemetry);
 
 
 
