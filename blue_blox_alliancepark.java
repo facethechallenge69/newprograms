@@ -103,7 +103,7 @@ public class blue_blox_alliancepark extends LinearOpMode
         side_servo = hardwareMap.servo.get("side_servo");
         side_servo_claw = hardwareMap.servo.get("side_servo_gang");
 
-        Side_Arm_Gang = hardwareMap.dcMotor.get("gang_side_arm");
+       // Side_Arm_Gang = hardwareMap.dcMotor.get("gang_side_arm");
 
 
         //potential gyro, we will just let it stay here

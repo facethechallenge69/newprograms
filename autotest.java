@@ -14,7 +14,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
-@TeleOp(name = "AutoBest", group = "Tutorials")
+@TeleOp(name = "AutoBes", group = "Tutorials")
 public class autotest extends LinearOpMode
 {
     private DcMotor motorL_Up;
@@ -91,6 +91,8 @@ public class autotest extends LinearOpMode
 
         double servo_arm_position = 0;
         double last_servo_arm_postition = 7;
+        double side_servo_pos = -1;
+        double last_side_servo_pos = 7;
 
         //Setting the behavior for the motors to float.
         motorR_Up.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -171,17 +173,17 @@ public class autotest extends LinearOpMode
                 auto_functions.OpenServo();
             }
 
-            if (gamepad2.x)
+          /*  if (gamepad2.x)
             {
                 servo_arm_position += 0.05;
                 sleep(100);
-            }
+            } */
 
-            if(gamepad2.a)
+            /*if(gamepad2.a)
             {
                 servo_arm_position -= 0.01;
                 sleep(100);
-            }
+            } */
 
             if (gamepad2.right_bumper)
             {
@@ -190,11 +192,12 @@ public class autotest extends LinearOpMode
 
             if (gamepad2.y)
             {
-                side_servo.setPosition(0.3);
+             side_servo_pos += 0.01;
+             sleep(100);
             }
             if (gamepad2.x)
             {
-                side_servo.setPosition(0.6);
+                side_servo.setPosition(side_servo_pos);
             }
             if (gamepad2.a)
             {
@@ -206,10 +209,12 @@ public class autotest extends LinearOpMode
             }
 
 
-            if((last_encoder_tics != encoder_tics) || (last_encode_speed !=  encoder_speed) || (last_servo_arm_postition != servo_arm_position))
+            if((last_encoder_tics != encoder_tics) || (last_encode_speed !=  encoder_speed) || (last_servo_arm_postition != servo_arm_position)
+                    || (last_side_servo_pos != side_servo_pos))
             {
                 last_encoder_tics = encoder_tics;
                 last_encode_speed = encoder_speed;
+                last_side_servo_pos = side_servo_pos;
 
 
 
@@ -233,6 +238,7 @@ public class autotest extends LinearOpMode
                 telemetry.addData("encoder distance %d", encoder_tics);
                 telemetry.addData("encoder speed %f", encoder_speed);
                 telemetry.addData("servoposition %d", servo_arm_position);
+                telemetry.addData("sideservopos %d", side_servo_pos);
                 telemetry.addData("ArmMotorRightPosition %d", ArmMotor_Right.getCurrentPosition());
 
                 telemetry.addLine("gampad1.a = + 50 encoder tics");

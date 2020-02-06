@@ -26,7 +26,7 @@ telefor2 extends LinearOpMode {
     private Servo armservo;
     private Servo shake_shack_servo;
 
-    private DcMotor Side_Arm_Gang;
+  //  private DcMotor Side_Arm_Gang;
 
     NormalizedColorSensor colorSensor1;
     NormalizedColorSensor colorSensor2;
@@ -61,7 +61,7 @@ telefor2 extends LinearOpMode {
         armservo = hardwareMap.servo.get("arm_servo");
         shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
-        Side_Arm_Gang = hardwareMap.dcMotor.get("gang_side_arm");
+//        Side_Arm_Gang = hardwareMap.dcMotor.get("gang_side_arm");
 
 
         double motorSpeed = 1;
@@ -96,7 +96,7 @@ telefor2 extends LinearOpMode {
         ArmMotor_Left.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ArmMotor_Right.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
-        Side_Arm_Gang.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+      //  Side_Arm_Gang.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
 
 

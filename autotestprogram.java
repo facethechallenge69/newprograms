@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "autofunctionstest", group = "Tutorials")
+@Autonomous(name = "autofunctionstest2", group = "Tutorials")
 public class autotestprogram extends LinearOpMode
 {
     //all the wheel motors
@@ -140,7 +140,7 @@ public class autotestprogram extends LinearOpMode
 
        waitForStart();
 
-       auto_functions.DriveForward(0.8,2500);
+       //auto_functions.DriveForward(0.8,2500);
 
        auto_functions.rotate(90,0.8);
 
