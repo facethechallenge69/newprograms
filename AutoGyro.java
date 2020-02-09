@@ -13,7 +13,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.navigation.Position;
 import org.firstinspires.ftc.robotcore.external.navigation.Velocity;
 
-@Autonomous(name="GyRoDrIvE", group="Exercises")
+@Autonomous(name="AutoGyro", group="Exercises")
 //@Disabled
 public class AutoGyro extends LinearOpMode
 {
@@ -86,8 +86,10 @@ public class AutoGyro extends LinearOpMode
             telemetry.addData("3 correction", correction);
             telemetry.update();
 
-            motorL_Up.setPower(power - correction);
-            motorR_Up.setPower(power + correction);
+            //motorL_Up.setPower(power - correction);
+            //motorR_Up.setPower(power + correction);
+
+            rotate(90, 0.4);
 
             // We record the sensor values because we will test them in more than
             // one place with time passing between those places. See the lesson on

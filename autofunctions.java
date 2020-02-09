@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode.newprograms;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.Servo;
 
 import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
@@ -112,6 +113,22 @@ public class autofunctions
         side_servo_claw = side_servo_clawIn;
 
         telemetry = telemetryIn;
+
+
+    }
+
+    public void ResetGyro()
+    {
+        //potential gyro, we will just let it stay here
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        imu.initialize(parameters);
+
+        while ( !imu.isGyroCalibrated())
+        {
+            sleep(50);
+        }
     }
 
     public void DriveForward (double Power, int Distance)
@@ -120,6 +137,8 @@ public class autofunctions
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+
 
         AllBRAKE();
 
@@ -148,46 +167,106 @@ public class autofunctions
     }
 
 
-    public void DriveForwardGyro(double Power, int Distance)
+    public void DriveBackGyro(double Power, int Distance)
     {
-        correction = checkDirection();
+        ResetGyro();
+        // up motor no encoder
+        motorR_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorR_Up.setDirection(DcMotor.Direction.FORWARD);
+        motorL_Up.setDirection(DcMotor.Direction.REVERSE);
 
         motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorL_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        motorR_Up.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-
+        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         AllBRAKE();
 
-        motorL_Down.setTargetPosition(-Distance);
         motorR_Down.setTargetPosition(Distance);
+        motorL_Down.setTargetPosition(-Distance);
+
 
         motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
-
-        motorL_Up.setDirection(DcMotor.Direction.REVERSE);
-
-
-        motorL_Down.setPower(Power-correction);
         motorL_Up.setPower(Power);
         motorR_Up.setPower(Power);
-        motorR_Down.setPower(Power+correction);
 
-        motorR_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        motorL_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Down.setPower(Power);
+        motorR_Down.setPower(Power);
+
+
 
         while (motorR_Down.isBusy()&& motorL_Down.isBusy())
         {
+            correction = checkDirection();
+            motorL_Up.setPower(Power-correction);
+            motorR_Up.setPower(Power+correction);
             //Wait until the task is done
         }
         StopDriving();
 
+        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorR_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Up.setDirection(DcMotor.Direction.FORWARD);
 
     }
+
+    public void DriveForwardGyro(double Power, int Distance)
+    {
+        ResetGyro();
+        //resetAngle();
+        // up motor no encoder
+        motorR_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorR_Up.setDirection(DcMotor.Direction.REVERSE);
+        motorL_Up.setDirection(DcMotor.Direction.FORWARD);
+
+        motorL_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        AllBRAKE();
+
+        motorR_Down.setTargetPosition(-Distance);
+        motorL_Down.setTargetPosition(Distance);
+
+
+        motorL_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+        motorL_Up.setPower(Power);
+        motorR_Up.setPower(Power);
+
+        motorL_Down.setPower(Power);
+        motorR_Down.setPower(Power);
+
+
+
+        while (motorR_Down.isBusy()&& motorL_Down.isBusy())
+        {
+            correction = checkDirection();
+            motorL_Up.setPower(Power-correction);
+            motorR_Up.setPower(Power+correction);
+            //Wait until the task is done
+        }
+        StopDriving();
+
+        motorR_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorR_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        motorR_Up.setDirection(DcMotor.Direction.FORWARD);
+
+
+
+    }
+
+
 
     public void TurnLeft(double Power, int Distance)
     {
@@ -626,13 +705,18 @@ public class autofunctions
                 .addData("g", "%d", Color.green(color))
                 .addData("b", "%d", Color.blue(color));
 
-        if (Color.red(color) < 75 && Color.red(color) > 0 && Color.red(color2) < 75 && Color.red(color2) > 0) {
+        if (Color.red(color) < 88 && Color.red(color) > 0 && Color.red(color2) < 88 && Color.red(color2) > 0) {
             telemetry.addLine("Got black");
+            telemetry.addData("r", "%d", Color.red(color));
+            telemetry.addData("r", "%d", Color.red(color2));
+
             telemetry.update();
             return 1; // 1 = true
         }
 
         telemetry.addLine("nope");
+        telemetry.addData("r", "%d", Color.red(color));
+        telemetry.addData("r", "%d", Color.red(color2));
         telemetry.update();
         return 0;  // 0 = false
     }
@@ -663,7 +747,7 @@ public class autofunctions
                 .addData("r","%d", Color.red(color4));
 
 
-        if (Color.red(color3) < 75 && Color.red(color3) > 0 && Color.red(color4) < 75 && Color.red(color4) > 0) {
+        if (Color.red(color3) < 88 && Color.red(color3) > 0 && Color.red(color4) < 88 && Color.red(color4) > 0) {
             telemetry.addLine("Got black");
             telemetry.update();
             return 1; // 1 = true
@@ -859,7 +943,7 @@ public class autofunctions
         TurnRightCompensation(0.4,1150);
         sleep(100);
 
-        ArmUpDown(0.9,150);
+        ArmUpDown(0.369,150);
 
 
         //Drives Forward for -1500 - Current Position towards the foundation
@@ -1006,6 +1090,7 @@ public class autofunctions
     {
         lastAngles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
 
+
         globalAngle = 0;
     }
 
@@ -1068,6 +1153,14 @@ public class autofunctions
             rightPower = power;
         }
         else return;
+
+        motorR_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorR_Down.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorL_Up.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        motorL_Down.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
+        motorL_Up.setDirection(DcMotor.Direction.REVERSE);
+
 
         // set power to rotate.
         motorL_Up.setPower(leftPower);

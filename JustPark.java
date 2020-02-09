@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "JustPark69", group = "Tutorials")
+@Autonomous(name = "JustPark", group = "Tutorials")
 public class JustPark extends LinearOpMode
 {
     //all the wheel motors

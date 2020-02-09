@@ -22,7 +22,7 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = " side auto ", group = "Tutorials")
+@Autonomous(name = "Por La Ganga 69", group = "Tutorials")
 public class SideArmAuto extends LinearOpMode
 {
     //all the wheel motors
@@ -135,9 +135,9 @@ public class SideArmAuto extends LinearOpMode
 
                 telemetry);
         //Init Position
-        auto_functions.ServoUp();
+      //  auto_functions.ServoUp();
 
-        auto_functions.OpenServo();
+      //  auto_functions.OpenServo();
         //Position should be that the foundation servos are up against the wall, and the gaps between
         //the wheel motors is centered along the line of mat.
 
@@ -145,11 +145,18 @@ public class SideArmAuto extends LinearOpMode
 
         ArmMotor_Right.getCurrentPosition();
 
-        shake_shack_servo.setPosition(1);
+      //  shake_shack_servo.setPosition(1);
+
+
+    //  side_servo.setPosition(1);
+
+      side_servo_claw.setPosition(1);
+
+
 
         waitForStart();
 
-        auto_functions.DriveForward(0.35,-1600);
+        auto_functions.DriveForward(0.35,-1585);
 
         sleep(100);
 
@@ -157,17 +164,94 @@ public class SideArmAuto extends LinearOpMode
 
         sleep(100);
 
-        auto_functions.DriveForward(0.2, 75);
+       auto_functions.DriveForward(0.15, 125);
 
-        auto_functions.DriveForwardColorBlueSide(0.25,2000);
+        CurrentPosition = auto_functions.DriveForwardColorBlueSide(0.15,2000);
+        if(CurrentPosition < 0)
+            CurrentPosition = CurrentPosition * -1;
+        sleep(250);
 
-        auto_functions.DriveForward(0.35,-69);
+        auto_functions.DriveForward(0.15,-269);
+
 
         side_servo.setPosition(1);
 
+        sleep(469);
+
         side_servo_claw.setPosition(0);
 
-        side_servo.setPosition(0.45);
+        sleep(469);
+
+        auto_functions.ArmUpDown(0.369, 2200);
+
+        sleep(169);
+
+        side_servo.setPosition(0.29);
+
+        sleep(469);
+
+        telemetry.addData("CurrentPosition", "%d", CurrentPosition);
+        telemetry.update();
+        auto_functions.DriveForward(0.469, -1600-CurrentPosition-2269);
+
+        sleep(400);
+
+        side_servo.setPosition(0.869);
+
+        sleep(300);
+
+        side_servo_claw.setPosition(1);
+
+        sleep(300);
+
+        side_servo.setPosition(0.29);
+
+        sleep(300);
+
+        auto_functions.DriveBackGyro(0.469, (-1600-CurrentPosition-2269-1125-96)*-1);
+
+        auto_functions.StrafeRight(0.35,369);
+
+        sleep(300);
+
+        side_servo.setPosition(0.87);
+
+        auto_functions.StrafeLeft(0.35,369+269+269);
+
+        side_servo.setPosition(1);
+
+        sleep(500);
+
+        side_servo_claw.setPosition(0);
+
+        sleep(300);
+
+        side_servo.setPosition(0.29);
+
+        auto_functions.StrafeRight(0.35, 275+269);
+
+        auto_functions.DriveForward(0.8, (-1600-CurrentPosition-2269-1225-499));
+
+        sleep(200);
+
+        side_servo.setPosition(0.869);
+
+        sleep(300);
+
+        side_servo_claw.setPosition(1);
+
+        sleep(300);
+
+        side_servo.setPosition(0.29);
+
+        sleep(300);
+
+        auto_functions.DriveForward(0.69, 2600);
+
+
+
+
+
 
 
 

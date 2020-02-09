@@ -7,7 +7,7 @@ import com.qualcomm.robotcore.hardware.NormalizedColorSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
-@TeleOp(name = "tele 6.9", group = "Tutorials")
+@TeleOp(name = "TeleOp", group = "Tutorials")
 
 public class
 telefor2 extends LinearOpMode {

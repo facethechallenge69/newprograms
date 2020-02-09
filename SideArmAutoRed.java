@@ -22,8 +22,8 @@ import org.firstinspires.ftc.teamcode.newprograms.autofunctions;
 
 import static android.os.SystemClock.sleep;
 
-@Autonomous(name = "AutoTestProgram", group = "Tutorials")
-public class autotestprogram extends LinearOpMode
+@Autonomous(name = "SideArmAutoRed", group = "Tutorials")
+public class SideArmAutoRed extends LinearOpMode
 {
     //all the wheel motors
     private DcMotor motorL_Up;
@@ -45,8 +45,6 @@ public class autotestprogram extends LinearOpMode
 
     private Servo side_servo;
     private Servo side_servo_claw;
-
-    private DcMotor Side_Arm_Gang;
 
     //Sleep calling
     private ElapsedTime runtime = new ElapsedTime();
@@ -91,14 +89,14 @@ public class autotestprogram extends LinearOpMode
         armservo = hardwareMap.servo.get("arm_servo");
         shake_shack_servo = hardwareMap.servo.get("servo_arm");
 
+        side_servo = hardwareMap.servo.get("side_servo");
+        side_servo_claw = hardwareMap.servo.get("side_servo_gang");
+
         //colors
         colorSensor1 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color");
         colorSensor2 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color");
         colorSensor3 = (NormalizedColorSensor) hardwareMap.colorSensor.get("red_color.2");
         colorSensor4 = (NormalizedColorSensor) hardwareMap.colorSensor.get("black_color.2");
-
-        side_servo = hardwareMap.servo.get("side_servo");
-        side_servo_claw = hardwareMap.servo.get("side_servo_gang");
 
         //potential gyro, we will just let it stay here
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
@@ -132,17 +130,129 @@ public class autotestprogram extends LinearOpMode
                 colorSensor2,
                 colorSensor3,
                 colorSensor4,
-
                 side_servo,
                 side_servo_claw,
 
                 telemetry);
+        //Init Position
+        //  auto_functions.ServoUp();
 
-       waitForStart();
+        //  auto_functions.OpenServo();
+        //Position should be that the foundation servos are up against the wall, and the gaps between
+        //the wheel motors is centered along the line of mat.
 
-        auto_functions.DriveBackGyro(0.3,3500);
+        //Waiting for Start to be pressed
 
-        auto_functions.DriveForwardGyro(0.3, 3500);
+        ArmMotor_Right.getCurrentPosition();
+
+        //  shake_shack_servo.setPosition(1);
+
+
+        //  side_servo.setPosition(1);
+
+        side_servo_claw.setPosition(1);
+
+
+
+        waitForStart();
+
+        auto_functions.DriveForward(0.35,-1585);
+
+        sleep(100);
+
+        auto_functions.TurnRight(0.25,1250);
+
+        sleep(100);
+
+        auto_functions.DriveForward(0.15, 125);
+
+        CurrentPosition = auto_functions.DriveForwardColorRedSide(0.15,2000);
+        if(CurrentPosition < 0)
+            CurrentPosition = CurrentPosition * -1;
+        sleep(250);
+
+        auto_functions.DriveForward(0.15,-269);
+
+
+        side_servo.setPosition(1);
+
+        sleep(469);
+
+        side_servo_claw.setPosition(0);
+
+        sleep(469);
+
+        auto_functions.ArmUpDown(0.369, 2200);
+
+        sleep(169);
+
+        side_servo.setPosition(0.29);
+
+        sleep(469);
+
+        telemetry.addData("CurrentPosition", "%d", CurrentPosition);
+        telemetry.update();
+        auto_functions.DriveForward(0.469, -1600-CurrentPosition-2269);
+
+        sleep(469);
+
+        side_servo.setPosition(0.869);
+
+        sleep(469);
+
+        side_servo_claw.setPosition(1);
+
+        sleep(469);
+
+        side_servo.setPosition(0.29);
+
+        sleep(469);
+
+        auto_functions.DriveBackGyro(0.469, (-1600-CurrentPosition-2269-1125-169)*-1);
+
+        auto_functions.StrafeLeft(0.35,369);
+
+        sleep(369);
+
+        side_servo.setPosition(0.87);
+
+        auto_functions.StrafeRight(0.35,369+269+269);
+
+        side_servo.setPosition(1);
+
+        sleep(569);
+
+        side_servo_claw.setPosition(0);
+
+        sleep(469);
+
+        side_servo.setPosition(0.29);
+
+        auto_functions.StrafeLeft(0.35, 275+269);
+
+        auto_functions.DriveForward(0.8, (-1600-CurrentPosition-2269-1225-399));
+
+        sleep(169);
+
+        side_servo.setPosition(0.869);
+
+        sleep(469);
+
+        side_servo_claw.setPosition(1);
+
+        sleep(469);
+
+        side_servo.setPosition(0.29);
+
+        sleep(369);
+
+        auto_functions.DriveForward(0.69, 2500);
+
+
+
+
+
+
 
 
     }
